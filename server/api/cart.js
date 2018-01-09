@@ -1,7 +1,5 @@
 const router = require("express").Router();
 const { Product, Order } = require("../db/models");
-const Sequelize = require("sequelize");
-const Op = Sequelize.Op;
 
 //POST - creates the cart ()
 //exists whenever the user on site
