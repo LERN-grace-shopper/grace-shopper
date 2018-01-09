@@ -9,10 +9,10 @@ Similar to Amazon, your site should support browsing its products without having
 As a visitor, I want to...
 
 **PRODUCTS**
-+ view the full list of products (the product catalog), so that I can see everything that's available
-+ refine product listings by category, so that I can narrow down my choices to see only the types of items I'm interested in
++ ~~view the full list of products (the product catalog), so that I can see everything that's available~~
++ ~~refine product listings by category, so that I can narrow down my choices to see only the types of items I'm interested in~~
 + search product listings, so that I can find specific products I want by name
-+ view the details for an inidivdual product (including product descriptions, photos and reviews), so that I can determine whether that particular item fits my needs
++ ~~view the details for an inidivdual product (including product descriptions, photos and reviews), so that I can determine whether that particular item fits my needs~~
 
 **CART**
 + add items to my cart from the product listing or product detail pages, so that I can purchase them later
@@ -81,20 +81,20 @@ Acceptance Criteria: If a product is no longer available, users will not see it 
 As you work on your data models, please consider the types of data that you will receive, what you want to make required and how you will propagate those errors to the user.
 
 **Products**
-+ Must have title, description, price, and inventory quantity
-+ Must belong to at least one category
-+ If there is no photo, there must be a placeholder photo used
++ ~~Must have title, description, price, and inventory quantity~~
++ ~~Must belong to at least one category~~
++ ~~If there is no photo, there must be a placeholder photo used~~
 
 **Users**
-+ Users must have a valid email address
-+ Users email must be unique
++ ~~Users must have a valid email address~~
++ ~~Users email must be unique~~
 
 **Order**
-+ Orders must belong to a user OR guest session (authenticated vs unauthenticated)
++ ~~Orders must belong to a user~~ OR guest session (authenticated vs unauthenticated)
 + Orders must contain line items that capture the price, current product ID and quantity
 + If a user completes an order, that order should keep the price of the item at the time when they checked out even if the price of the product later changes
 
 **Reviews**
-+ All reviews must belong to a product
-+ All reviews must belong to a user
++ ~~All reviews must belong to a product~~
++ ~~All reviews must belong to a user~~
 + All reviews must be at least X characters
