@@ -1,9 +1,14 @@
+const db = require('./db');
+
+
 const {
   Order,
   Product,
   Review,
   User
 } = require('./models')
+
+
 
 const products = [
   {
@@ -45,3 +50,36 @@ const orders = [
     ]
   }
 ]
+
+
+async function seed () {
+  await db.sync({force: true})
+
+  const creatingUsers = await Promise.all(users.map(user => User.create(user)))
+  console.log(`seeded ${users.length} users`)
+  console.log(`seeded successfully`)
+
+  const creatingProducts = await Promise.all(products.map(product => Product.create(product)))
+  console.log(`seeded ${products.length} products`)
+  console.log(`seeded successfully`)
+
+  const creatingReviews = await Promise.all(reviews.map(review => Review.create(review)))
+  console.log(`seeded ${reviews.length} reviews`)
+  console.log(`seeded successfully`)
+
+  const creatingOrders = await Promise.all(orders.map(order => Order.create(order)))
+  console.log(`seeded ${orders.length} orders`)
+  console.log(`seeded successfully`)
+
+}
+
+seed()
+  .catch(err => {
+    console.error(err.message)
+    console.error(err.stack)
+  })
+  .then(() => {
+    console.log('closing db connection')
+    db.close()
+    console.log('db connection closed')
+  })
