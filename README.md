@@ -1,6 +1,6 @@
 # grace-shopper
 
-Objectives
+### Objectives
 Build a fullstack JavaScript app from the ground up
 Bring together the concepts and tools learned earlier in the program
 Emphasize best practices
@@ -14,7 +14,7 @@ Deploy application and understand the deployment process
 Use your creativity to build a compelling e-commerce site
 
 
-Evaluation
+### Evaluation
 
 Hygienic Checklist
 Test coverage in Istanbul (10% of total code)
@@ -23,7 +23,7 @@ Deployment to Heroku and installation of NewRelic (max 1.5 hours on this)
 Project management and effective use of Git Pull Requests/Github
 Norms.MD, Contribution Guidelines
 
-Graded/Rated
+### Graded/Rated
 Code Quality
 DRYness
 General best practices in front-end and back-end
@@ -35,7 +35,7 @@ dumb/presentational components
 smart/container components
 async action creators, etc.
 
-Subjective Evaluation
+### Subjective Evaluation
 UI/site usability
 Security
 Design/visual appeal
