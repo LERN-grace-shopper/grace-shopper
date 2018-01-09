@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const { Product } = require("../db/models");
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 
 router.get("/", (req, res, next) => {
   if (req.query.category) {
