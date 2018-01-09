@@ -81,20 +81,20 @@ Acceptance Criteria: If a product is no longer available, users will not see it 
 As you work on your data models, please consider the types of data that you will receive, what you want to make required and how you will propagate those errors to the user.
 
 **Products**
-+ Must have title, description, price, and inventory quantity
-+ Must belong to at least one category
-+ If there is no photo, there must be a placeholder photo used
++ ~~Must have title, description, price, and inventory quantity~~
++ ~~Must belong to at least one category~~
++ ~~If there is no photo, there must be a placeholder photo used~~
 
 **Users**
-+ Users must have a valid email address
-+ Users email must be unique
++ ~~Users must have a valid email address~~
++ ~~Users email must be unique~~
 
 **Order**
-+ Orders must belong to a user OR guest session (authenticated vs unauthenticated)
++ ~~Orders must belong to a user~~ OR guest session (authenticated vs unauthenticated)
 + Orders must contain line items that capture the price, current product ID and quantity
 + If a user completes an order, that order should keep the price of the item at the time when they checked out even if the price of the product later changes
 
 **Reviews**
-+ All reviews must belong to a product
-+ All reviews must belong to a user
++ ~~All reviews must belong to a product~~
++ ~~All reviews must belong to a user~~
 + All reviews must be at least X characters
