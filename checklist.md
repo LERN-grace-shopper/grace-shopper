@@ -9,10 +9,10 @@ Similar to Amazon, your site should support browsing its products without having
 As a visitor, I want to...
 
 **PRODUCTS**
-+ view the full list of products (the product catalog), so that I can see everything that's available
-+ refine product listings by category, so that I can narrow down my choices to see only the types of items I'm interested in
++ ~~view the full list of products (the product catalog), so that I can see everything that's available~~
++ ~~refine product listings by category, so that I can narrow down my choices to see only the types of items I'm interested in~~
 + search product listings, so that I can find specific products I want by name
-+ view the details for an inidivdual product (including product descriptions, photos and reviews), so that I can determine whether that particular item fits my needs
++ ~~view the details for an inidivdual product (including product descriptions, photos and reviews), so that I can determine whether that particular item fits my needs~~
 
 **CART**
 + add items to my cart from the product listing or product detail pages, so that I can purchase them later
