@@ -5,6 +5,7 @@ router.get('/', (req, res, next) => {
   if (req.query.category) {
     Product.findAll({ where: {category: req.query.category} })
       .then(products => res.json(products))
+      .catch(next)
   } else {
     Product.findAll()
       .then(products => res.json(products))
