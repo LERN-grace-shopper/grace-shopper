@@ -1,5 +1,5 @@
 # grace-shopper
----
+
 ### Objectives
 ___
 + Build a fullstack JavaScript app from the ground up
@@ -38,6 +38,7 @@ ___
 + async action creators, etc.
 
 ### Subjective Evaluation
+___
 + UI/site usability
 + Security
 + Design/visual appeal
