@@ -53,8 +53,8 @@ const createApp = () => {
 
   //check session middleware
   app.use(function(req, res, next) {
-    console.log("SESSION: ", req.session.id);
-    console.log("USER ", req.user);
+    console.log("SESSION: ", req.session);
+    //console.log("USER ", req.user);
     next();
   });
 
@@ -112,3 +112,4 @@ if (require.main === module) {
 } else {
   createApp()
 }
+
