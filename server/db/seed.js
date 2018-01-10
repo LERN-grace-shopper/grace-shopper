@@ -28,6 +28,13 @@ const users = [
     // salt,
     googleId: null,
     isAdmin: false
+  },
+  {
+    email: 'jojo@gmail.com',
+    password: 'secretpassword',
+    // salt,
+    googleId: null,
+    isAdmin: false
   }
 ]
 
@@ -35,6 +42,11 @@ const reviews = [
   {
     title: 'worst product ever',
     content: 'i licked this rock and it didn\'t taste good',
+    rating: 5
+  },
+  {
+    title: 'impressive!',
+    content: 'amazing stone- highly recommend!!',
     rating: 5
   }
 ]
@@ -47,7 +59,8 @@ const orders = [
         productId: 1,
         quantity: 1
       }
-    ]
+    ],
+    status: 'Created'
   }
 ]
 
