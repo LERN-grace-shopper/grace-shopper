@@ -1,26 +1,10 @@
 const router = require("express").Router();
 const { Product, Order } = require("../db/models");
 
-//note: these routes should only be reacheable if the session id matches
-//POST - creates the cart ()
-//exists whenever the user on site
-router.get("/", (req,res,next) => {
-    req.session.cart = {}
+//updates cart with whatever from the req.body. we should add more specifics on the front end side
+router.put("/", (req,res,next) => {
+    req.session.cart = req.body
     res.send(req.session.cart)
 })
-
-//PUT - add items to cart (ie updatting it)
-// updates cart
-// upon completion cart -> order
-router.put("/", (req,res,next) => {
-
-})
-
-//GET - get the cart
-router.get("/", (req,res,next) => {
-    res.json(req.session.cart)
-})
-
-
 
 module.exports = router

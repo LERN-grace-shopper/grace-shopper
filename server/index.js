@@ -53,11 +53,16 @@ const createApp = () => {
 
   //check session middleware
   app.use(function(req, res, next) {
-    console.log("SESSION: ", req.session);
+    console.log("SESSION: ", req.session.id);
     //console.log("USER ", req.user);
     next();
   });
 
+  //add cart to the session
+  app.use((req, res, next) => {
+      req.session.cart = {};
+      next()
+    });
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
