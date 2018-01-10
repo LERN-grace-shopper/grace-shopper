@@ -1,22 +1,13 @@
 const router = require("express").Router();
 const { Product, Order } = require("../db/models");
 
-//POST - creates the cart ()
-//exists whenever the user on site
-
-//PUT - add items to cart (ie updatting it)
-//if cart - update 
-//else post
-
-//GET - get the cart
-router.get("/:orderId", (req, res, next) => {
-    Order.findById(req.params.orderId)
-    // .spread(([...foundOrder]) => {
-
-    // })
+//updates cart with whatever from the req.body. we should add more specifics on the front end side
+router.put("/", (req,res,next) => {
+    req.session.cart = req.body
+    res.send(req.session.cart)
 })
 
-//DELETE
+//delete items from cart - does it need to be a seperate request, or could it just apply to update?
 
 
 module.exports = router
