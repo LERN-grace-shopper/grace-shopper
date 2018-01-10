@@ -11,7 +11,7 @@ const Cart = props => (
 
 
 const mapState = state => ({
-
+  cart: state.cart
 })
 
 const mapDispatch = dispatch => ({
