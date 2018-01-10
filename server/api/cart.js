@@ -7,4 +7,7 @@ router.put("/", (req,res,next) => {
     res.send(req.session.cart)
 })
 
+//delete items from cart - does it need to be a seperate request, or could it just apply to update?
+
+
 module.exports = router

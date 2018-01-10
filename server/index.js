@@ -51,9 +51,9 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
-  //check session middleware
+  //session-viewing middleware
   app.use(function(req, res, next) {
-    console.log("SESSION: ", req.session.id);
+    console.log("SESSION: ", req.session);
     //console.log("USER ", req.user);
     next();
   });
@@ -63,6 +63,7 @@ const createApp = () => {
       req.session.cart = {};
       next()
     });
+  
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
