@@ -43,6 +43,9 @@ const createApp = () => {
 
   // session middleware with passport
   app.use(session({
+    genid: function(req) {
+      return genuuid()
+    },
     secret: process.env.SESSION_SECRET || 'my best friend is Cody',
     store: sessionStore,
     resave: false,
@@ -53,11 +56,11 @@ const createApp = () => {
 
   //check session middleware
   app.use(function(req, res, next) {
-    console.log("SESSION: ", req.session);
+    console.log("SESSION: ", req.session.id);
     console.log("USER ", req.user);
     next();
   });
-  
+
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
