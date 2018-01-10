@@ -15,7 +15,7 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1>BOILERMAKER</h1>
+      <h1 id='shop-name'>CRYSTALS</h1>
       <nav>
         {
           isLoggedIn
@@ -30,6 +30,8 @@ const Main = (props) => {
               <Link to="/signup">Sign Up</Link>
             </div>
         }
+        <Link to="/products">Products</Link>
+        <Link to="/cart">Cart</Link>
       </nav>
       <hr />
       {children}
