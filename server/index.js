@@ -23,6 +23,27 @@ module.exports = app
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
+//helper functions for security purposes
+function isAdmin(req,res,next) {
+ if (req.user && req.user.isAdmin === true) {
+   next()
+ } else {
+   const err = new Error('not authorized')
+   err.status = 403
+   next(err)
+ }
+}
+
+function isUser(req,res,next) {
+  if (req.user) {
+    next()
+  } else {
+    const err = new Error('currently not logged in as a user')
+    err.status = 403
+    next(err)
+  }
+}
+
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
@@ -51,6 +72,19 @@ const createApp = () => {
   app.use(passport.initialize())
   app.use(passport.session())
 
+  //session-viewing middleware
+  app.use(function(req, res, next) {
+    console.log("SESSION: ", req.session);
+    //console.log("USER ", req.user);
+    next();
+  });
+
+  //add cart to the session
+  app.use((req, res, next) => {
+      req.session.cart = {};
+      next()
+    });
+  
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
@@ -105,3 +139,4 @@ if (require.main === module) {
 } else {
   createApp()
 }
+
