@@ -43,9 +43,6 @@ const createApp = () => {
 
   // session middleware with passport
   app.use(session({
-    genid: function(req) {
-      return genuuid()
-    },
     secret: process.env.SESSION_SECRET || 'my best friend is Cody',
     store: sessionStore,
     resave: false,

@@ -5,9 +5,9 @@ const { Product, Order } = require("../db/models");
 //POST - creates the cart ()
 //exists whenever the user on site
 router.get("/", (req,res,next) => {
-    const {cart} = req.session
-    console.log("CART????", cart)
-    res.send("is this even working???")
+    const { cartId } = req.session.id
+    console.log("CART????", cartId)
+    res.send(cardId)
 })
 
 //PUT - add items to cart (ie updatting it)
