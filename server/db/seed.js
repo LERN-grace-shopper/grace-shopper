@@ -15,8 +15,8 @@ const products = [
     title: 'Quartz',
     description: 'healing stone, composed of crystalline silica',
     price: 500,
-    inventoryQuantity: 10, 
-    categories: 'healing stones, silica, expensive', 
+    inventoryQuantity: 10,
+    categories: 'healing stones, silica, expensive',
     photoUrl: ''
   }
 ]
