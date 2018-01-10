@@ -1,4 +1,4 @@
-import axios from 'axios'
+// import axios from 'axios'
 
 // action types
 const ADD_CART_ITEM = 'ADD_CART_ITEM'
@@ -33,14 +33,20 @@ export const removeItemFromCart = (productId) => ({
 export default function(state=defaultCart, action) {
   switch (action.type) {
     case ADD_CART_ITEM:
-      return [
+      if (state.some(item => item.productId === action.productId)) {
+        return state.map(lineItem => 
+          lineItem.productId === action.productId
+            ? {...lineItem, quantity: lineItem.quantity + 1}
+            : lineItem
+        )
+      } else return [
         ...state,
         {
           productId: action.productId,
           quantity: action.quantity
         }
       ]
-    
+
     case CHANGE_CART_ITEM_QUANT:
       return [
         ...state.filter(lineItem => lineItem.productId !== action.productId),
