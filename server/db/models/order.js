@@ -2,9 +2,6 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Order = db.define('order', {
-  lineItems: {
-    type: Sequelize.ARRAY(Sequelize.JSON) // price, product ID, quantity
-  },
   status: {
     type: Sequelize.ENUM('Created', 'Processing', 'Canceled', 'Completed')
   }
