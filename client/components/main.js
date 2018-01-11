@@ -15,7 +15,7 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1 id='shop-name'>CRYSTALS</h1>
+      <h1 id="shop-name">CRYSTALS</h1>
       <nav>
         {
           isLoggedIn

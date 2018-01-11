@@ -32,7 +32,10 @@ export const fetchSingleProduct = productId =>
 export const removeProduct = productId =>
   dispatch =>
     axios.delete(`/api/products/${productId}`)
-      .then(res => dispatch(deleteProduct(productId)))
+      .then(res => {
+        dispatch(deleteProduct(productId))
+        return res.status(204).send()
+      })
       .catch(err => console.error(err))
 
 // reducer

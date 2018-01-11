@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {fetchAllProducts} from '../store/product.js'
+import {fetchAllProducts} from '../store'
 
 const Products = props => (
   <li>
