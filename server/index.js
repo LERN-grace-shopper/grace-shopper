@@ -73,18 +73,18 @@ const createApp = () => {
   app.use(passport.session())
 
   //session-viewing middleware
-  app.use(function(req, res, next) {
-    console.log("SESSION: ", req.session);
-    //console.log("USER ", req.user);
-    next();
-  });
+  // app.use(function(req, res, next) {
+  //   console.log("SESSION: ", req.session);
+  //   //console.log("USER ", req.user);
+  //   next();
+  // });
 
   //add cart to the session
   app.use((req, res, next) => {
       req.session.cart = {};
       next()
     });
-  
+
   // auth and api routes
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
@@ -139,4 +139,3 @@ if (require.main === module) {
 } else {
   createApp()
 }
-

@@ -18,12 +18,11 @@ const Product = db.define('product', {
   },
   categories: {
     type: Sequelize.STRING,
-    allowNull: false,
-    default: 'boring'
+    defaultValue: 'boring'
   },
   photoUrl: {
     type: Sequelize.STRING,
-    default: 'https://images.freeimages.com/images/large-previews/ad9/amethyst-quartz-2-1537357.jpg'
+    defaultValue: 'https://images.freeimages.com/images/large-previews/ad9/amethyst-quartz-2-1537357.jpg'
   }
 })
 
