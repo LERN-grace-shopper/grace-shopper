@@ -4,7 +4,7 @@ const { Order } = require("../db/models");
 // GET all orders
 // GET orders by statusId (created, processing, canceled, completed)
 
-
+//this route is not yet fully functional, definetly needs refactoring
 router.get("/", (req, res, next) => {
     if (req.query.status) {
       Order.findAll({
