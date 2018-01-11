@@ -1,13 +1,40 @@
 const router = require("express").Router();
-const { Product, Order } = require("../db/models");
+const { Product, Order, Cart } = require("../db/models");
 
+/*POST cart route */
+router.post("/", (req, res, next) => {
+  if (req.user) {
+    req.user.cart = req.body;
+    req.send("users cart added");
+  } else {
+    req.session.cart = req.body;
+    res.send("session cart added");
+  }
+});
+
+/* GET/ cart route
+if new user new cart on session
+if req.user.id familiar - get cart from db and put it on the session */
+router.get("/", (req, res, next) => {
+  if (req.user) {
+    res.send(req.user.cart);
+  } else {
+    res.send(req.session.cart);
+  }
+});
+
+/* DELETE cart - if unauthenticated user, we want to delete it???? or we dont?? idk*/
+
+/* PUT/ cart - add/remote item to cart on session (and in db if authenticated user) */
 //updates cart with whatever from the req.body. we should add more specifics on the front end side
-router.put("/", (req,res,next) => {
-    req.session.cart = req.body
-    res.send(req.session.cart)
-})
+router.put("/", (req, res, next) => {
+  if (req.user) {
+    req.user.cart = req.body;
+    req.send("users cart updated");
+  } else {
+    req.session.cart = req.body;
+    res.send("session cart updated");
+  }
+});
 
-//delete items from cart - does it need to be a seperate request, or could it just apply to update?
-
-
-module.exports = router
+module.exports = router;
