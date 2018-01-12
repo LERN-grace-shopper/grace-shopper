@@ -25,11 +25,15 @@ const Checkout = (props) => {
 }
 
 const mapState = ()  => {
-
+    return {
+        
+    }
 }
 
 const mapDispatch = (dispatch) => {
+    return {
 
+    }
 }
 
 export default withRouter(connect(mapState, mapDispatch)(Checkout))
