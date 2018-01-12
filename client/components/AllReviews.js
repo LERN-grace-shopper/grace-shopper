@@ -4,14 +4,12 @@ import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import {fetchReviewsByProductId} from '../store'
 
-const AllReviews = props => {
-    console.log('PROPS IN ALL REVIEWS', props)
+const AllReviews = (props) => {
     return
     (
         <li>
           {props.reviews && props.reviews.map(review => (
             <ul key={review.id}>
-          
                 <img src={product.photoUrl} alt="product photoUrl loading fail" />
                 <h6>{review.title}</h6>
             </ul>
@@ -20,11 +18,11 @@ const AllReviews = props => {
       )
 }
 
-const mapState = state => ({
+const mapState = (state) => ({
   reviews: state.review.reviews
 })
 
-const mapDispatch = dispatch => {
+const mapDispatch = (dispatch) => {
   dispatch(fetchReviewsByProductId())
   return {}
 }
