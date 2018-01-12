@@ -14,6 +14,8 @@ const Product = props => {
       <br />
       <img src={product.photoUrl} alt="product photoUrl loading fail" id="view-product-img" />
       <br />
+      <div>price: ${(product.price/100).toFixed(2)}</div>
+      <br />
       <button onClick={handleCartAddClick(product.id)}>Add to cart</button>
       <br />
       <div id="view-product-desc">Product Description:{product.description}</div>
