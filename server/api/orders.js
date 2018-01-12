@@ -27,6 +27,15 @@ router.get("/:orderId", (req, res, next) => {
     .catch(next);
 });
 
+// POST Create a new order
+
+router.post('/', (req, res, next) => {
+  req.body.status = 'Processing';
+  Order.create(req.body)
+  .then(order => res.json(order))
+  .catch(next);
+})
+
 // PUT Change the status of an order
 
 router.put('/:orderId', (req, res, next) => {

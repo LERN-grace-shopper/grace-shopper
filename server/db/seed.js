@@ -29,6 +29,12 @@ const users = [
     // salt,
     googleId: null,
     isAdmin: false
+  },
+  {
+    email: 'admin@admin.com',
+    password: 'admin',
+    googleId: null,
+    isAdmin: true
   }
 ]
 
