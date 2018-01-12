@@ -36,7 +36,7 @@ if item is already in the cart, update item quantity, else add it*/
 router.put("/", (req, res, next) => {
   if (req.user) {
     req.user.cart = req.body;
-    req.send("users cart updated");
+    res.send("users cart updated");
   } else {
     req.session.cart = req.body;
     res.send("session cart updated");
