@@ -11,7 +11,7 @@ const Cart = db.define('cart', {
     },
     isCart: {
         type: Sequelize.BOOLEAN,
-        defaultValue: false
+        defaultValue: true
     }
 });
 // I havent yet added it, but we can add a getter method or a hook or something to get the product price AT THE TIME OF placing the order (or whatever), and store that as the purchase price in the cart (later)
