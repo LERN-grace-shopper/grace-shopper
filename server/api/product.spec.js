@@ -13,7 +13,7 @@ describe('Products Route:', () => {
 
   describe('GET /api/products', () => {
     it('responds with an empty array via JSON at first', () => {
-      request(app)
+     return request(app)
         .get('/api/products')
         .expect('Content-Type', /json/)
         .expect((res) => {
