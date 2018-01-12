@@ -105,6 +105,7 @@ describe('Products Route:', () => {
   });
 
 
+    // When route is in place, check to make sure this test is sound
   describe('POST /api/products', () => {
     xit('successfully creates a new product instance in the database', () => {
       return request(app)
@@ -117,6 +118,7 @@ describe('Products Route:', () => {
           categories: 'gray, iridescent, feldspar',
           photoUrl: 'https://images.freeimages.com/images/large-previews/ad9/amethyst-quartz-2-1537357.jpg'
         })
+        .expect(201)
         .then(() => {
           return Product.findById(1)
         })
