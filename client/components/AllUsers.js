@@ -7,12 +7,15 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {fetchAllUsers, deleteUserOnServer, updateUserOnServer} from '../store'
 
-const AllUsers = props => {
-  const {allUsers, handleUserDeleteClick, handleUserToggleAdminClick} = props
+const yellAtHackers = () => {
+  alert("stop pressing buttons!! you shouldn't even be viewing this page!")
+}
 
-  return (!props.isAdmin ? 'how are you seeing this page, hacker?' : (
+const AllUsers = props => {
+  const {isAdmin, allUsers, handleUserDeleteClick, handleUserToggleAdminClick} = props
+  alert('api routes for deleting and updating users do not exist, page is nonfunctional')
+  return (!isAdmin ? 'how are you seeing this page, hacker?' : (
   <li>
-    {console.log(allUsers)}
     {allUsers && allUsers.map(user => (
       <ul key={user.id}>
         User ID: {user.id}
@@ -23,7 +26,9 @@ const AllUsers = props => {
         Admin? {user.isAdmin} */}
         { // can't delete your own account
           user.id !== props.yourId &&
-          <button onClick={handleUserDeleteClick(user.id)}> Delete user </button>
+          <button onClick={
+            isAdmin ? handleUserDeleteClick(user.id) : yellAtHackers
+          }> Delete user </button>
         }
         <br />
         { // can't toggle your own admin status
@@ -41,29 +46,29 @@ const mapState = state => ({
   yourId: state.user.id
 })
 
-const yellAtHackers = () => {
-  alert("stop pressing buttons!! you shouldn't even be viewing this page!")
-}
 
-const mapDispatch = (dispatch, ownProps) => {
+// admin validation within these functions has been commented out due to bugginess
+const mapDispatch = (dispatch, /*ownProps*/) => {
   dispatch(fetchAllUsers())
   return {
     handleUserDeleteClick (userId) {
       return function() {
-        if (ownProps.isAdmin) {dispatch(deleteUserOnServer(userId))}
-        else {yellAtHackers()}
+        // if (ownProps.isAdmin) {
+          dispatch(deleteUserOnServer(userId))
+        // }
+        // else {yellAtHackers()}
       }
     },
     handleUserToggleAdminClick (userId) {
       return function() {
-        if (ownProps.isAdmin) {
+        // if (ownProps.isAdmin) {
           const updatingUser = ownProps.allUsers.find(user => user.id === userId)
           dispatch(updateUserOnServer({
             ...updatingUser,
             isAdmin: !updatingUser.isAdmin
           }))
-        }
-        else {yellAtHackers()}
+        // }
+        // else {yellAtHackers()}
       }
     }
   }
