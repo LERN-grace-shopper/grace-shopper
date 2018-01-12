@@ -11,7 +11,7 @@ import {logout} from '../store'
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const {children, handleClick, isLoggedIn} = props
+  const {children, handleClick, isLoggedIn, isAdmin} = props
 
   return (
     <div>
@@ -21,7 +21,8 @@ const Main = (props) => {
           isLoggedIn
             ? <div>
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
+              <Link to="/home">{isAdmin ? 'Admin' : 'Home'}</Link>
+              {isAdmin && <Link to="/users"> All users </Link>}
               <a href="#" onClick={handleClick}>Logout</a>
             </div>
             : <div>
@@ -44,7 +45,8 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 
