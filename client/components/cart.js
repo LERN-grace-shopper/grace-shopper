@@ -37,7 +37,7 @@ const mapState = state => ({
   cart: state.product.allProducts
     .filter(prod => state.cart.some(item => item.productId === prod.id))
     .map(prod => ({
-      ...prod, 
+      ...prod,
       cartQuant: state.cart.find(item => item.productId === prod.id).quantity
     }))
 })
