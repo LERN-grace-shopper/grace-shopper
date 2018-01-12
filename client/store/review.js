@@ -12,7 +12,7 @@ const defaultReviews = {
 
 // action creator
 
-const getReviewsByProductId = reviews => {
+const getReviewsByProductId = (reviews) => {
     return {
         type: GET_REVIEWS_BY_PRODUCT_ID,
         reviews
@@ -21,12 +21,21 @@ const getReviewsByProductId = reviews => {
 
 // thunk creator
 
-export const fetchReviewsByProductId = productId => 
-    dispatch => 
-        axios.get(`/reviews/${productId}`)
+// export const fetchReviewsByProductId = (productId) => 
+//     dispatch => 
+//         axios.get(`/reviews/${productId}`)
+//         .then(res => {
+//             dispatch(getReviewsByProductId(res.data))
+//         })
+
+export function fetchReviewsByProductId(productId) {
+    return function thunk(dispatch) {
+        axios.get(`/api/reviews/${productId}`)
         .then(res => {
             dispatch(getReviewsByProductId(res.data))
         })
+    }
+}
         
 
 
