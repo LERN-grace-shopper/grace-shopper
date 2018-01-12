@@ -27,7 +27,6 @@ export const fetchSingleProduct = productId =>
   dispatch =>
     axios.get(`/api/products/${productId}`)
       .then(res => {
-        console.log('!!!!!', res.data)
         dispatch(getSingleProduct(res.data))
       })
       

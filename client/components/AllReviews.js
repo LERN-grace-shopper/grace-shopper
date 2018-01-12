@@ -5,7 +5,7 @@ import {withRouter, Link} from 'react-router-dom'
 import {fetchReviewsByProductId} from '../store'
 
 const AllReviews = (props) => {
-    console.log('PROPS IN ALL REVIEWS', props)
+
     return (
         <div>
             <h2>Reviews</h2>
@@ -20,6 +20,7 @@ const AllReviews = (props) => {
             })}
         </div>
     )
+
 }
 
 const mapState = (state) => ({
@@ -28,6 +29,7 @@ const mapState = (state) => ({
 
 const mapDispatch = (dispatch, ownProps) => {
   dispatch(fetchReviewsByProductId(ownProps.match.params.productId))
+
   return {}
 }
 

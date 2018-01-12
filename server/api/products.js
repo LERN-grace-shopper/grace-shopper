@@ -14,9 +14,16 @@ router.get("/", (req, res, next) => {
   }
 });
 
-router.get("/:productId", (req, res, next) => {
-  Product.findById(req.params.productId, {include: [{all: true}]})
-    .then(product => res.json(product))
+
+router.get('/:productId', (req, res, next) => {
+  Product.findById(req.params.productId)
+    .then(product => {
+      if (!product) {
+        res.status(404).send()
+      } else {
+        res.json(product)
+      }
+    })
     .catch(next);
 });
 

@@ -12,7 +12,7 @@ router.get('/', (req, res, next) => {
 
 router.get('/:productId', (req, res, next) => {
     Review.findAll({
-      where: {id: req.params.productId}
+      where: {productId: req.params.productId}
     })
       .then(reviews => res.json(reviews))
       .catch(next)
