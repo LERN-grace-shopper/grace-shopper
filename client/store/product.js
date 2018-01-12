@@ -26,7 +26,10 @@ export const fetchAllProducts = () =>
 export const fetchSingleProduct = productId =>
   dispatch =>
     axios.get(`/api/products/${productId}`)
-      .then(res => dispatch(getSingleProduct(res.data)))
+      .then(res => {
+        dispatch(getSingleProduct(res.data))
+      })
+      
       .catch(err => console.error(err))
 
 export const removeProduct = productId =>
