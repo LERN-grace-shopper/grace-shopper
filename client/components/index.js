@@ -9,8 +9,4 @@ export {Login, Signup} from './auth-form'
 export {default as Cart} from './cart'
 export {default as Product} from './product'
 export {default as Products} from './products'
-<<<<<<< HEAD
-export {default as AllUsers} from './AllUsers'
-=======
 export {default as Checkout} from './Checkout'
->>>>>>> 7da6174694a1bd0e62b7b669a003a73c9d80e8d7
