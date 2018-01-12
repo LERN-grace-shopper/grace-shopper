@@ -17,6 +17,9 @@ const Cart = props => (
       </ul>
     ))}
   </li>
+    <Link to="/checkout">
+      <button>Checkout!</button>
+    </Link>
   </div>
 )
 

@@ -23,7 +23,7 @@ const getReviewsByProductId = reviews => {
 
 export const fetchReviewsByProductId = productId => 
     dispatch => 
-        axios.get(`/reviews/${productId}`)
+        axios.get(`/api/reviews/${productId}`)
         .then(res => {
             dispatch(getReviewsByProductId(res.data))
         })

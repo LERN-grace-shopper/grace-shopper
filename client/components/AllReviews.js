@@ -5,8 +5,8 @@ import {withRouter, Link} from 'react-router-dom'
 import {fetchReviewsByProductId} from '../store'
 
 const AllReviews = (props) => {
-    return
-    (
+  console.log("props reviews", props.reviews)
+    return (
         <li>
           {props.reviews && props.reviews.map(review => (
             <ul key={review.id}>
