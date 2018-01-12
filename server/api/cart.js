@@ -5,7 +5,7 @@ const { Product, Order, Cart } = require("../db/models");
 router.post("/", (req, res, next) => {
   if (req.user) {
     req.user.cart = req.body;
-    req.send("users cart added");
+    res.send("users cart added");
   } else {
     req.session.cart = req.body;
     res.send("session cart added");
