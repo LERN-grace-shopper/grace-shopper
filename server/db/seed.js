@@ -6,7 +6,7 @@ const {
   Product,
   Review,
   User,
-  productOrder
+  Cart
 } = require('./models')
 
 
@@ -80,7 +80,7 @@ async function seed () {
   console.log(`seeded ${orders.length} orders`)
   console.log(`seeded successfully`)
 
-  const creatingCart = await Promise.all(carts.map(cart => productOrder.create(cart)))
+  const creatingCarts = await Promise.all(carts.map(cart => Cart.create(cart)))
   console.log(`seeded ${carts.length} cart`)
   console.log(`seeded successfully`)
 
