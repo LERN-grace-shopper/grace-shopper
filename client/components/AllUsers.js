@@ -8,7 +8,7 @@ import {withRouter} from 'react-router-dom'
 import {fetchAllUsers, deleteUserOnServer, updateUserOnServer} from '../store'
 
 const AllUsers = props => {
-  const allUsers = props.allUsers
+  const {allUsers, handleUserDeleteClick, handleUserToggleAdminClick} = props
 
   return (!props.isAdmin ? 'how are you seeing this page, hacker?' : (
   <li>
@@ -21,9 +21,15 @@ const AllUsers = props => {
         <br />
         {/* Google ID: {user.googleId} // Problem: this information is not retrieved from server
         Admin? {user.isAdmin} */}
-        <button> Delete user </button>
+        { // can't delete your own account
+          user.id !== props.yourId &&
+          <button onClick={handleUserDeleteClick(user.id)}> Delete user </button>
+        }
         <br />
-        <button> Toggle admin status </button>
+        { // can't toggle your own admin status
+          user.id !== props.yourId &&
+          <button onClick={handleUserToggleAdminClick(user.id)}> Toggle admin status </button>
+        }
       </ul>
     ))}
   </li>
@@ -31,7 +37,8 @@ const AllUsers = props => {
 
 const mapState = state => ({
   allUsers: state.adminUserList,
-  isAdmin: state.user.isAdmin
+  isAdmin: state.user.isAdmin,
+  yourId: state.user.id
 })
 
 const yellAtHackers = () => {
@@ -43,7 +50,7 @@ const mapDispatch = (dispatch, ownProps) => {
   return {
     handleUserDeleteClick (userId) {
       return function() {
-        if (ownProps.isAdmin) dispatch(deleteUserOnServer(userId))
+        if (ownProps.isAdmin) {dispatch(deleteUserOnServer(userId))}
         else {yellAtHackers()}
       }
     },
@@ -56,7 +63,7 @@ const mapDispatch = (dispatch, ownProps) => {
             isAdmin: !updatingUser.isAdmin
           }))
         }
-        else yellAtHackers()
+        else {yellAtHackers()}
       }
     }
   }
