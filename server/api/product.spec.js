@@ -117,12 +117,14 @@ describe('Products Route:', () => {
           categories: 'gray, iridescent, feldspar',
           photoUrl: 'https://images.freeimages.com/images/large-previews/ad9/amethyst-quartz-2-1537357.jpg'
         })
-        .expect((res) => {
-          expect(res.body.product.id).to.not.be.an('undefined');
-          expect(res.body.product.description).to.equal('A grounding stone that brings resilience and decisiveness');
-          expect(res.body.product.price).to.equal(70);
+        .then(() => {
+          return Product.findById(1)
         })
-        .expect(201)
+        .then(foundProd => {
+          expect(foundProd.id).to.not.be.an('undefined');
+          expect(foundProd.description).to.equal('A grounding stone that brings resilience and decisiveness');
+          expect(foundProd.price).to.equal(70);
+        })
     });
   });
 
