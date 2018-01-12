@@ -17,6 +17,8 @@ const Cart = props => (
       </ul>
     ))}
   </li>
+    <h5>subtotal:</h5>
+    <h5>total:</h5>
     <Link to="/checkout">
       <button>Checkout!</button>
     </Link>
