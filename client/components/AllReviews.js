@@ -5,25 +5,33 @@ import {withRouter, Link} from 'react-router-dom'
 import {fetchReviewsByProductId} from '../store'
 
 const AllReviews = (props) => {
-  console.log("props reviews", props.reviews)
+
     return (
-        <li>
-          {props.reviews && props.reviews.map(review => (
-            <ul key={review.id}>
-                <img src={product.photoUrl} alt="product photoUrl loading fail" />
-                <h6>{review.title}</h6>
-            </ul>
-          ))}
-        </li>
-      )
+        <div>
+            <h2>Reviews</h2>
+            {props.reviews && props.reviews.map(review => {
+                return (
+                    <div key={review.id}>
+                        <h4>{review.title}</h4>
+                            <br />
+                        <h5>{review.content}</h5>
+                            <br />
+                        <div>Rating: {review.rating}</div>
+                    </div>
+                )
+            })}
+        </div>
+    )
+
 }
 
 const mapState = (state) => ({
   reviews: state.review.reviews
 })
 
-const mapDispatch = (dispatch) => {
-  dispatch(fetchReviewsByProductId())
+const mapDispatch = (dispatch, ownProps) => {
+  dispatch(fetchReviewsByProductId(ownProps.match.params.productId))
+
   return {}
 }
 
