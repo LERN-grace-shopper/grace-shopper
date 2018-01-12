@@ -4,8 +4,7 @@ const { Product } = require("../db/models");
 router.get("/", (req, res, next) => {
   if (req.query.category) {
     Product.findAll({
-      where: { categories: { $like: `%${req.query.category}%` } }
-    })
+      where: { categories: { $like: `%${req.query.category}%` } }})
       .then(products => res.json(products))
       .catch(next);
   } else {
@@ -14,6 +13,7 @@ router.get("/", (req, res, next) => {
       .catch(next);
   }
 });
+
 
 router.get('/:productId', (req, res, next) => {
   Product.findById(req.params.productId)
@@ -26,5 +26,6 @@ router.get('/:productId', (req, res, next) => {
     })
     .catch(next);
 });
+
 
 module.exports = router;
