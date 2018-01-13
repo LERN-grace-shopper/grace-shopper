@@ -11,10 +11,6 @@ const Order = db.define('order', {
   },
   total: {
     type: Sequelize.INTEGER
-  },
-  isCart: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: true
   }
 })
 
