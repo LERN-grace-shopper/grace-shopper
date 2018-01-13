@@ -1,6 +1,7 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
 const db = require('../db')
+const _ = require('lodash')
 
 const User = db.define('user', {
   email: {
@@ -35,6 +36,9 @@ User.prototype.correctPassword = function (candidatePwd) {
   return User.encryptPassword(candidatePwd, this.salt) === this.password
 }
 
+User.prototype.sanitize = function () {
+  return _.omit(this.toJSON(), ["password", "salt"]);
+};
 /**
  * classMethods
  */
@@ -59,6 +63,8 @@ const setSaltAndPassword = user => {
     user.password = User.encryptPassword(user.password, user.salt)
   }
 }
+
+
 
 User.beforeCreate(setSaltAndPassword)
 User.beforeUpdate(setSaltAndPassword)
