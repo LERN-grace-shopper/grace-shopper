@@ -5,13 +5,13 @@ const { Order, ProductOrder } = require("../db/models");
 //right now passwords and salts are coming too, but that needs to not be a thing....
 router.get("/", (req, res, next) => {
     if (req.query.status) {
-      return Order.findAll({
+      Order.findAll({
         where: { status: { $like: `%${req.query.status}%` } }
       })
         .then(orders => res.json(orders))
         .catch(next);
     } else {
-      return Order.findAll({
+      Order.findAll({
         include: [
           { all: true }
         ]
@@ -23,20 +23,19 @@ router.get("/", (req, res, next) => {
     }
   });
 
-// GET order by id
-
+// GET single order by id
+//right now passwords and salts are coming too, but that needs to not be a thing....
 router.get("/:orderId", (req, res, next) => {
-  return Order.findById(req.params.orderId)
+  Order.findById(req.params.orderId, {include: [{all: true}] })
     .then(order => res.json(order))
     .catch(next);
 });
 
 
 //POST create an order --> (maybe fetch this upon initial page load?)
-//req.body in json form needs to be:
+//req.body in json form needs (at the minimum) to be:
 /*{
 	"address": "it works!",
-  "total": "293231"
   "userId": "1"
 }*/
 router.post("/cart", (req, res, next) => {
@@ -48,8 +47,13 @@ router.post("/cart", (req, res, next) => {
 });
 
 // PUT Change the status of an order
-
-//PUT /add -> add an item to the quantity /delete - remote an item from the quantity
+//PUT /add -> add an item to the quantity (or if no item added to the order, it will create one)
+//not fully sure if the statuses are correct?
+/* needs to recieve info as:
+{
+  orderId: "num"
+  productId: "num"
+} */
 router.put("/add", (req, res, next) => {
   const { orderId, productId } = req.body
   ProductOrder.findOrCreate({
@@ -67,89 +71,23 @@ router.put("/add", (req, res, next) => {
     .catch(next);
 });
 
+//PUT /delete - remote an item from the quantity
+/* needs to recieve info as:
+{
+  orderId: "num"
+  productId: "num"
+} */
 router.put("/remove", (req, res, next) => {
   const { orderId, productId } = req.body;
   ProductOrder.findOne({
     where: {orderId, productId}
   })
-  .then(remove => {
-    remove.decrement('quantity')
-    .then(removal => res.status(201).json(removal))
+  .then(minus => {
+    minus.decrement('quantity')
+    .then(removed => res.status(201).json(removed))
     .catch(next)
   })
   .catch(next)
-});
-
-//GET -> /1 get user order
-router.get("/:orderId", (req, res, next) => {
-  Order.findById(req.params.orderId)
-    .then(order => {
-      res.json(order);
-    })
-    .catch(next);
-});
-
-
-
-module.exports = router;
-
-
-
-
-
-
-
-
-
-//GET -> for admins get all the orders
-
-// GET all orders
-// GET orders by statusId (created, processing, canceled, completed)
-
-//this route is not yet fully functional, definetly needs refactoring
-router.get("/", (req, res, next) => {
-  if (req.query.status) {
-    Order.findAll({
-      where: { status: { $like: `%${req.query.status}%` } }
-    })
-      .then(orders => res.json(orders))
-      .catch(next);
-  } else {
-    Order.findAll()
-      .then(orders => res.json(orders))
-      .catch(next);
-  }
-});
-
-// GET order by id
-
-router.get("/:orderId", (req, res, next) => {
-  Order.findById(req.params.orderId)
-    .then(order => res.json(order))
-    .catch(next);
-});
-
-// POST Create a new order
-
-router.post("/", (req, res, next) => {
-  req.body.status = "Processing";
-  Order.create(req.body)
-    .then(order => res.json(order))
-    .catch(next);
-});
-
-// PUT Change the status of an order
-
-router.put("/:orderId", (req, res, next) => {
-  Order.update(req.body, {
-    where: { id: req.params.orderId },
-    returning: true
-  })
-    .then(results => {
-      const updated = results[1][0];
-      res.json(updated);
-    })
-    .catch(next);
 });
 
 module.exports = router;
