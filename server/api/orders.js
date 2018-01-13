@@ -9,7 +9,7 @@ router.get("/", (req, res, next) => {
         where: { status: { $like: `%${req.query.status}%` } }
       })
         .then(orders => res.json(orders))
-        .catch(next);
+        .catch(next)
     } else {
       Order.findAll({
         include: [
@@ -19,7 +19,7 @@ router.get("/", (req, res, next) => {
         .then(orders => {
           res.json(orders)
         })
-        .catch(next);
+        .catch(next)
     }
   });
 
@@ -28,7 +28,7 @@ router.get("/", (req, res, next) => {
 router.get("/:orderId", (req, res, next) => {
   Order.findById(req.params.orderId, {include: [{all: true}] })
     .then(order => res.json(order))
-    .catch(next);
+    .catch(next)
 });
 
 
@@ -43,7 +43,7 @@ router.post("/cart", (req, res, next) => {
     .then(createdOrder => {
       res.send(createdOrder);
     })
-    .catch(next);
+    .catch(next)
 });
 
 // PUT Change the status of an order
@@ -68,7 +68,7 @@ router.put("/add", (req, res, next) => {
         .catch(next)
       }
     })
-    .catch(next);
+    .catch(next)
 });
 
 //PUT /delete - remote an item from the quantity
@@ -89,5 +89,13 @@ router.put("/remove", (req, res, next) => {
   })
   .catch(next)
 });
+
+//I have not added total calculation yet, will do that later. this would literally just change the status on the order
+router.put("/complete", (req,res,next) => {
+  Order.findById(req.body.id) //or req.body.orderId???? idk
+  Order.update({ status: "Processing", isCart: false }, { returning: true })
+    .then(completeOrder => res.json(completeOrder))
+    .catch(next)
+})
 
 module.exports = router;

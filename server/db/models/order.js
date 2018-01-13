@@ -11,9 +11,14 @@ const Order = db.define('order', {
   },
   total: {
     type: Sequelize.INTEGER
+  },
+  isCart: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
   }
 })
 
+//do we still need this?
 Order.prototype.addItem = function(newItem) {
   // when adding item, it must have productId, price, and quantity.
   const { productId/*, price, quantity*/ } = newItem
