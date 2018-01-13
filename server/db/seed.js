@@ -54,15 +54,7 @@ const reviews = [
 const orders = [
   {
     status: 'Created',
-    userId: 1
-  }
-]
-
-const carts = [
-  {
-    productId: 1,
-    orderId: 1,
-    userId: 1
+    address: "193 Fullstack St. Brooklyn, NY 11239",
   }
 ];
 
@@ -84,10 +76,6 @@ async function seed () {
 
   const creatingOrders = await Promise.all(orders.map(order => Order.create(order)))
   console.log(`seeded ${orders.length} orders`)
-  console.log(`seeded successfully`)
-
-  const creatingCarts = await Promise.all(carts.map(cart => Cart.create(cart)))
-  console.log(`seeded ${carts.length} cart`)
   console.log(`seeded successfully`)
 
 }
