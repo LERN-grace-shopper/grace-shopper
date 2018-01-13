@@ -1,9 +1,9 @@
-const router = require("express").Router();
-const { Order, ProductOrder } = require("../db/models");
+const router = require('express').Router();
+const { Order, ProductOrder } = require('../db/models');
 
 // GET all orders
 //right now passwords and salts are coming too, but that needs to not be a thing....
-router.get("/", (req, res, next) => {
+router.get('/', (req, res, next) => {
     if (req.query.status) {
       Order.findAll({
         where: { status: { $like: `%${req.query.status}%` } }
@@ -25,7 +25,7 @@ router.get("/", (req, res, next) => {
 
 // GET single order by id
 //right now passwords and salts are coming too, but that needs to not be a thing....
-router.get("/:orderId", (req, res, next) => {
+router.get('/:orderId', (req, res, next) => {
   Order.findById(req.params.orderId, {include: [{all: true}] })
     .then(order => res.json(order))
     .catch(next)
@@ -38,7 +38,7 @@ router.get("/:orderId", (req, res, next) => {
 	"address": "it works!",
   "userId": "1"
 }*/
-router.post("/cart", (req, res, next) => {
+router.post('/cart', (req, res, next) => {
   Order.create(req.body)
     .then(createdOrder => {
       res.send(createdOrder);
@@ -54,7 +54,7 @@ router.post("/cart", (req, res, next) => {
   orderId: "num"
   productId: "num"
 } */
-router.put("/add", (req, res, next) => {
+router.put('/add', (req, res, next) => {
   const { orderId, productId } = req.body
   ProductOrder.findOrCreate({
     where: {orderId, productId}
@@ -77,7 +77,7 @@ router.put("/add", (req, res, next) => {
   orderId: "num"
   productId: "num"
 } */
-router.put("/remove", (req, res, next) => {
+router.put('/remove', (req, res, next) => {
   const { orderId, productId } = req.body;
   ProductOrder.findOne({
     where: {orderId, productId}
@@ -91,11 +91,14 @@ router.put("/remove", (req, res, next) => {
 });
 
 //I have not added total calculation yet, will do that later. this would literally just change the status on the order
-router.put("/complete", (req,res,next) => {
+router.put('/complete', (req,res,next) => {
   Order.findById(req.body.id) //or req.body.orderId???? idk
-  Order.update({ status: "Processing", isCart: false }, { returning: true })
-    .then(completeOrder => res.json(completeOrder))
-    .catch(next)
+  .then(order => {
+    order.update({ status: 'Processing', isCart: false }, { returning: true })
+      .then(completeOrder => res.json(completeOrder))
+      .catch(next)
+  })
+  .catch(next)
 })
 
 module.exports = router;
