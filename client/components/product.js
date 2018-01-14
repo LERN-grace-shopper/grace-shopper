@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import AllReviews from './AllReviews'
+import LeaveReview from './single-review'
 import {fetchSingleProduct, addItemToCart, fetchReviewsByProductId} from '../store'
 
 const Product = props => {
@@ -18,7 +19,7 @@ const Product = props => {
       <br />
       <button onClick={handleCartAddClick(product.id)}>Add to cart</button>
       <br />
-      <div id="view-product-desc">Product Description: 
+      <div id="view-product-desc">Product Description:
       <br />
       {product.description}</div>
       <br />
@@ -26,6 +27,7 @@ const Product = props => {
       <br />
       {product.categories}</div>
       <AllReviews />
+      <LeaveReview />
     </div>
   )
 }
