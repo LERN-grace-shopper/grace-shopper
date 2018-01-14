@@ -4,32 +4,50 @@ const { Order, ProductOrder } = require('../db/models');
 // GET all orders
 //right now passwords and salts are coming too, but that needs to not be a thing....
 router.get('/', (req, res, next) => {
-    if (req.query.status) {
-      Order.findAll({
-        where: { status: req.query.status }
+  if (req.query.status) {
+    Order.findAll({
+      where: { status: req.query.status }
+    })
+      .then(orders => res.json(orders))
+      .catch(next)
+  } else {
+    Order.findAll({
+      include: [
+        { all: true }
+      ]
+    })
+      .then(orders => {
+        res.json(orders)
       })
-        .then(orders => res.json(orders))
-        .catch(next)
-    } else {
-      Order.findAll({
-        include: [
-          { all: true }
-        ]
-      })
-        .then(orders => {
-          res.json(orders)
-        })
-        .catch(next)
-    }
-  });
+      .catch(next)
+  }
+});
+
+router.get('/users/:userId', (req, res, next) => {
+  if (req.query.isCart) {
+    Order.findOne({
+      where: { isCart: true }
+    })
+      .then(cart => res.json(cart))
+      .catch(next)
+  } else {
+    Order.findAll()
+      .then(orders => res.json(orders))
+      .catch(next)
+  }
+})
+
+
 
 // GET single order by id
 //right now passwords and salts are coming too, but that needs to not be a thing....
 router.get('/:orderId', (req, res, next) => {
-  Order.findById(req.params.orderId, {include: [{all: true}] })
+  Order.findById(req.params.orderId, { include: [{ all: true }] })
     .then(order => res.json(order))
     .catch(next)
 });
+
+
 
 
 //POST create an order --> (maybe fetch this upon initial page load?)
@@ -57,15 +75,15 @@ router.post('/cart', (req, res, next) => {
 router.put('/add', (req, res, next) => {
   const { orderId, productId } = req.body
   ProductOrder.findOrCreate({
-    where: {orderId, productId}
+    where: { orderId, productId }
   })
     .spread((add, bool) => {
       if (bool) {
         res.status(200).json(add)
       } else {
         add.increment('quantity')
-        .then(addition => res.status(201).json(addition))
-        .catch(next)
+          .then(addition => res.status(201).json(addition))
+          .catch(next)
       }
     })
     .catch(next)
@@ -80,25 +98,25 @@ router.put('/add', (req, res, next) => {
 router.put('/remove', (req, res, next) => {
   const { orderId, productId } = req.body;
   ProductOrder.findOne({
-    where: {orderId, productId}
+    where: { orderId, productId }
   })
-  .then(minus => {
-    minus.decrement('quantity')
-    .then(removed => res.status(201).json(removed))
+    .then(minus => {
+      minus.decrement('quantity')
+        .then(removed => res.status(201).json(removed))
+        .catch(next)
+    })
     .catch(next)
-  })
-  .catch(next)
 });
 
 //I have not added total calculation yet, will do that later. this would literally just change the status on the order
-router.put('/complete', (req,res,next) => {
+router.put('/complete', (req, res, next) => {
   Order.findById(req.body.id) //or req.body.orderId???? idk
-  .then(order => {
-    order.update({ status: 'Processing', isCart: false }, { returning: true })
-      .then(completeOrder => res.json(completeOrder))
-      .catch(next)
-  })
-  .catch(next)
+    .then(order => {
+      order.update({ status: 'Processing', isCart: false }, { returning: true })
+        .then(completeOrder => res.json(completeOrder))
+        .catch(next)
+    })
+    .catch(next)
 })
 
 module.exports = router;
