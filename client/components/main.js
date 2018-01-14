@@ -22,7 +22,14 @@ const Main = (props) => {
             ? <div>
               {/* The navbar will show these links after you log in */}
               <Link to="/home">{isAdmin ? 'Admin' : 'Home'}</Link>
-              {isAdmin && <Link to="/users"> All users </Link>}
+              {
+                isAdmin && (
+                  <div>
+                    <Link to="/data-visualization">Data Visualization</Link>
+                    <Link to="/users"> All users </Link>
+                  </div>
+                )
+              }
               <a href="#" onClick={handleClick}>Logout</a>
             </div>
             : <div>
