@@ -28,7 +28,7 @@ const Product = props => {
       {product.categories}</div>
       <AllReviews />
       {/* Add isLoggedIn check to conditionally render LeaveReview (only for authenticated users) */}
-      <LeaveReview />
+      <LeaveReview productId={product.id} />
     </div>
   )
 }
