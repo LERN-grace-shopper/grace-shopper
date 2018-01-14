@@ -19,7 +19,8 @@ const LeaveReview = (props) => {
           />
         </div>
         <br />
-        <div>
+        <div>Leave A Review:
+          <br />
           <textarea
             rows="5"
             cols="52"
