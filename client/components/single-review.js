@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import {composeReview, submitReview} from '../store/review-form'
 
-const Review = (props) => {
+const LeaveReview = (props) => {
   const {title, content, rating, handleChange, handleSubmit} = props
 
   return (
     <div>
       <form id="submit-review">
-        <div>
+        <div>Subject:
           <input
             label="Title"
             value={title}
@@ -17,15 +17,16 @@ const Review = (props) => {
           />
         </div>
         <br />
-        <div>
+        <div>What did you think of this product?
           <input
+            type="text"
             label="Content"
             value={content}
             onChange={handleChange}
           />
         </div>
         <br />
-        <div>
+        <div>Rating (1-5): 
           <input
             label="Rating"
             value={rating}
@@ -57,4 +58,4 @@ const mapDispatch = (dispatch) => {
   }
 }
 
-export default withRouter(connect(mapState, mapDispatch)(Review))
+export default withRouter(connect(mapState, mapDispatch)(LeaveReview))
