@@ -6,7 +6,7 @@ const { Order, ProductOrder } = require('../db/models');
 router.get('/', (req, res, next) => {
     if (req.query.status) {
       Order.findAll({
-        where: { status: { $like: `%${req.query.status}%` } }
+        where: { status: req.query.status }
       })
         .then(orders => res.json(orders))
         .catch(next)
