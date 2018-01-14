@@ -1,4 +1,5 @@
 import axios from 'axios'
+import state from './index'
 
 // action types
 
@@ -28,13 +29,9 @@ const submitCheckoutForm = fieldValues => ({
 
 // can grab userId from the store, but need to check and see which order is open
 
-export function sendCheckoutFormToServer(fieldValues) {
+export function sendCheckoutFormToServer(fieldValues, userId) {
   return function thunk(dispatch) {
-    // axios.get('/api/orders')
-
-
-
-      axios.put('/api/orders/1', fieldValues)
+      axios.put(`/api/orders/${userId}`, fieldValues)
       .then(res => {
           dispatch(submitCheckoutForm(res.data))
       })

@@ -5,7 +5,7 @@ import {Cart} from './index'
 import {alterCheckoutForm, sendCheckoutFormToServer} from '../store/checkout-form'
 
 const Checkout = (props) => {
-    const {name, address, handleChange, handleSubmit} = props
+    const {name, address, handleChange, handleSubmit, user} = props
 
     return (
         <div>
@@ -43,7 +43,7 @@ const mapState = (state)  => {
     }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
     return {
         handleChange (event) {
             const alteration = {}
@@ -54,11 +54,10 @@ const mapDispatch = (dispatch) => {
             event.preventDefault()
             const name = event.target.name.value
             const address = event.target.address.value
+            // const userId = ????????
             dispatch(sendCheckoutFormToServer({
-                // whatever data we need to send
                 name, address
-            }))
-            // alert('checkout form submission not implemented')
+            }, userId))
         }
     }
 }
