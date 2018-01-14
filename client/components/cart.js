@@ -20,6 +20,7 @@ const Cart = props => {
           <img src={product.photoUrl} alt="product photoUrl loading fail" />
           <h6>{product.title}</h6>
         </Link>
+        <div>${(product.price/100).toFixed(2)} each</div>
         <div>{product.cartQuant} in cart</div>
       </ul>
     ))}
