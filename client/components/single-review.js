@@ -9,26 +9,33 @@ const LeaveReview = (props) => {
   return (
     <div>
       <form id="submit-review">
-        <div>Subject:
+        <div>Name:
+          <br />
           <input
-            label="Title"
+            type="text"
+            name="Name"
             value={title}
             onChange={handleChange}
           />
         </div>
         <br />
-        <div>What did you think of this product?
-          <input
-            type="text"
-            label="Content"
+        <div>
+          <textarea
+            rows="5"
+            cols="52"
+            name="Content"
             value={content}
             onChange={handleChange}
+            placeholder="What did you think of this product?"
           />
         </div>
         <br />
-        <div>Rating (1-5): 
+        <div>Rating:
+          <br />
           <input
-            label="Rating"
+            type="text"
+            name="Rating"
+            placeholder="1 - 5"
             value={rating}
             onChange={handleChange}
           />
