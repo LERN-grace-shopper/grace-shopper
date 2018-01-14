@@ -5,7 +5,7 @@ const { Order, ProductOrder } = require('../db/models');
 //right now passwords and salts are coming too, but that needs to not be a thing....
 router.get('/', (req, res, next) => {
     if (req.query.status) {
-      return Order.findAll({
+      Order.findAll({
         where: { status: req.query.status }
       })
         .then(orders => res.json(orders))
