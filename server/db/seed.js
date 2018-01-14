@@ -24,7 +24,7 @@ const products = [
   {
     title: 'Moonstone',
     description: 'An energizing and powerful stone, moonstone will help you with confidence and self esteem.',
-    price: 10,
+    price: 1000,
     inventoryQuantity: 100,
     categories: 'Energizing',
     photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/AdulaireSuisse2.jpg/218px-AdulaireSuisse2.jpg'
@@ -32,7 +32,7 @@ const products = [
   {
     title: 'Amethyst',
     description: 'A protective stone that can help you calm your mind and focus.',
-    price: 15,
+    price: 800,
     inventoryQuantity: 20,
     categories: 'Calming',
     photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/AdulaireSuisse2.jpg/218px-AdulaireSuisse2.jpg'
@@ -40,7 +40,7 @@ const products = [
   {
     title: 'Rose quartz',
     description: 'A beautiful stone that enhances love and promotes positivity.',
-    price: 30,
+    price: 750,
     inventoryQuantity: 60,
     categories: 'Positivity',
     photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/AdulaireSuisse2.jpg/218px-AdulaireSuisse2.jpg'
