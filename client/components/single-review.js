@@ -14,6 +14,16 @@ const LeaveReview = (props) => {
           <input
             type="text"
             name="Name"
+            value={name}
+            onChange={handleChange}
+          />
+        </div>
+        <br />
+        <div>Title:
+          <br />
+          <input
+            type="text"
+            name="Title"
             value={title}
             onChange={handleChange}
           />
