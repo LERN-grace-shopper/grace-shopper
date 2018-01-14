@@ -25,14 +25,20 @@ const submitCheckoutForm = fieldValues => ({
 
 // thunk creators
 
-  // if we want to update order linked to userId, we would need axios.PUT with userId from the store (user.id)
-  export function sendCheckoutFormToServer(fieldValues) {
-    return function thunk(dispatch) {
-        axios.post('/api/orders/', fieldValues)
-        .then(res => {
-            dispatch(sendCheckoutFormToServer(res.data))
-        })
-    }
+
+// can grab userId from the store, but need to check and see which order is open
+
+export function sendCheckoutFormToServer(fieldValues) {
+  return function thunk(dispatch) {
+    // axios.get('/api/orders')
+
+
+
+      axios.put('/api/orders/1', fieldValues)
+      .then(res => {
+          dispatch(submitCheckoutForm(res.data))
+      })
+  }
 }
 
 
