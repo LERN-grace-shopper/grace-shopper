@@ -17,3 +17,9 @@ router.get('/:productId', (req, res, next) => {
       .then(reviews => res.json(reviews))
       .catch(next)
   })
+
+router.post('/', (req, res, next) => {
+  return Review.create(req.body)
+    .then(newReview => res.json(newReview))
+    .catch(next)
+})
