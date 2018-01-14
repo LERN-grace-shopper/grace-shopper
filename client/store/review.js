@@ -30,13 +30,6 @@ const getReviewsForAllProducts = (allReviews) => {
 
 // thunk creator
 
-// export const fetchReviewsByProductId = (productId) => 
-//     dispatch => 
-//         axios.get(`/reviews/${productId}`)
-//         .then(res => {
-//             dispatch(getReviewsByProductId(res.data))
-//         })
-
 export function fetchReviewsByProductId(productId) {
     return function thunk(dispatch) {
         axios.get(`/api/reviews/${productId}`)
@@ -55,7 +48,6 @@ export function fetchReviewsForAllProducts() {
     }
 }
         
-
 
 // reducer
 

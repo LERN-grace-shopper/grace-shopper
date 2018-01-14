@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import AllReviews from './AllReviews'
+import LeaveReview from './single-review'
 import {fetchSingleProduct, addItemToCart, fetchReviewsByProductId} from '../store'
 
 const Product = props => {
   const {product, handleCartAddClick} = props
-  
+
   return (
     <div id="single-product-view">
       <h1 id="view-product-title">{product.title}</h1>
@@ -18,9 +19,16 @@ const Product = props => {
       <br />
       <button onClick={handleCartAddClick(product.id)}>Add to cart</button>
       <br />
-      <div id="view-product-desc">Product Description:{product.description}</div>
-      <div id="view-product-reviews">Reviews:</div>
+      <div id="view-product-desc">Product Description:
+      <br />
+      {product.description}</div>
+      <br />
+      <div id="view-product-cats">Product Categories:
+      <br />
+      {product.categories}</div>
       <AllReviews />
+      {/* Add isLoggedIn check to conditionally render LeaveReview (only for authenticated users) */}
+      <LeaveReview />
     </div>
   )
 }

@@ -3,16 +3,22 @@ const db = require('../db')
 
 const Order = db.define('order', {
   status: {
-    type: Sequelize.ENUM('Created', 'Processing', 'Canceled', 'Completed')
+    type: Sequelize.ENUM('Created', 'Processing', 'Canceled', 'Completed'),
+    defaultValue: 'Created'
   },
   address: {
     type: Sequelize.STRING
-  }, 
+  },
   total: {
     type: Sequelize.INTEGER
+  },
+  isCart: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: true
   }
 })
 
+//do we still need this?
 Order.prototype.addItem = function(newItem) {
   // when adding item, it must have productId, price, and quantity.
   const { productId/*, price, quantity*/ } = newItem
