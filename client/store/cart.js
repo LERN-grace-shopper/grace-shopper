@@ -7,6 +7,8 @@ const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
 
 // initial state
 const defaultCart = []
+const total = 0
+
 
 // action creators
 export const addItemToCart = (productId, quantity=1) => ({
