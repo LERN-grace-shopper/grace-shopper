@@ -10,10 +10,12 @@ const Checkout = (props) => {
     return (
         <div>
             <Cart />
-            <form id="submit-form">
-                <div>Name
+            <form id="submit-form" onSubmit={handleSubmit}>
+                <div className="input-group input-group-lg">Name
                     <input
+                        className="form-control"
                         label="Name"
+                        name="name"
                         value={name}
                         onChange={handleChange}
                     />
@@ -22,12 +24,13 @@ const Checkout = (props) => {
                 <div>Address
                     <input
                         label="Address"
+                        name="address"
                         value={address}
                         onChange={handleChange}
                     />
                 </div>
                 <br />
-                <button type="Submit" onClick={handleSubmit}>Complete your Order</button>
+                <button className="btn btn-outline-primary" type="Submit">Complete your Order</button>
             </form>
         </div>
     )
@@ -49,10 +52,13 @@ const mapDispatch = (dispatch) => {
         },
         handleSubmit (event) {
             event.preventDefault()
+            const name = event.target.name.value
+            const address = event.target.address.value
             dispatch(sendCheckoutFormToServer({
                 // whatever data we need to send
+                name, address
             }))
-            alert('checkout form submission not implemented')
+            // alert('checkout form submission not implemented')
         }
     }
 }

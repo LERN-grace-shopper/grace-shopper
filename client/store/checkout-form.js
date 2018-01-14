@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 // action types
 
 const CHECKOUT_FORM_ALTERED = 'CHECKOUT_FORM_ALTERED'
@@ -23,10 +25,15 @@ const submitCheckoutForm = fieldValues => ({
 
 // thunk creators
 
-export const sendCheckoutFormToServer = fieldValues =>
-  dispatch => {
-    // axios.post('/api/checkout') // etc. ?
-  }
+  // if we want to update order linked to userId, we would need axios.PUT with userId from the store (user.id)
+  export function sendCheckoutFormToServer(fieldValues) {
+    return function thunk(dispatch) {
+        axios.post('/api/orders/', fieldValues)
+        .then(res => {
+            dispatch(sendCheckoutFormToServer(res.data))
+        })
+    }
+}
 
 
 // reducer
