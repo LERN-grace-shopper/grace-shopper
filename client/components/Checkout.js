@@ -10,7 +10,7 @@ const Checkout = (props) => {
     return (
         <div>
             <Cart />
-            <form id="submit-form" onSubmit={handleSubmit}>
+            <form id="submit-form" onSubmit={(event) => props.handleSubmit(user, event)}>
                 <div className="input-group input-group-lg">Name
                     <input
                         className="form-control"
@@ -50,13 +50,14 @@ const mapDispatch = (dispatch, ownProps) => {
             alteration[event.target.name] = event.target.value
             dispatch(alterCheckoutForm(alteration))
         },
-        handleSubmit (event) {
+        handleSubmit (user, event) {
             event.preventDefault()
             const name = event.target.name.value
             const address = event.target.address.value
-            // const userId = ????????
+            const userId = user.id
+            const status = "Processing"
             dispatch(sendCheckoutFormToServer({
-                name, address
+                name, address, status
             }, userId))
         }
     }
