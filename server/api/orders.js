@@ -40,7 +40,6 @@ router.get('/users/:userId', (req, res, next) => {
 })
 
 // PUT orders from "Complete my purchase" button
-
 router.put('/users/:userId', (req, res, next) => {
   console.log('REQ.BODY', req.body)
   console.log("REQ.PARAMS", req.params.userId)
@@ -76,6 +75,7 @@ router.get('/:orderId', (req, res, next) => {
 router.post('/cart', (req, res, next) => {
   Order.create(req.body)
     .then(createdOrder => {
+      console.log("order", createdOrder)
       res.send(createdOrder);
     })
     .catch(next)
@@ -125,15 +125,5 @@ router.put('/remove', (req, res, next) => {
     .catch(next)
 });
 
-//I have not added total calculation yet, will do that later. this would literally just change the status on the order
-router.put('/complete', (req, res, next) => {
-  Order.findById(req.body.id) //or req.body.orderId???? idk
-    .then(order => {
-      order.update({ status: 'Processing', isCart: false }, { returning: true })
-        .then(completeOrder => res.json(completeOrder))
-        .catch(next)
-    })
-    .catch(next)
-})
 
 module.exports = router;

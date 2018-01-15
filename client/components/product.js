@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import AllReviews from './AllReviews'
 import LeaveReview from './single-review'
-import {fetchSingleProduct, addItemToCart, fetchReviewsByProductId} from '../store'
+import {fetchSingleProduct, addItemToCart, addToOrder, fetchReviewsByProductId} from '../store'
 
 const Product = props => {
   const {product, handleCartAddClick} = props
@@ -40,8 +40,11 @@ const mapState = state => ({
 const mapDispatch = (dispatch, ownProps) => {
   dispatch(fetchSingleProduct(ownProps.match.params.productId))
   return {
-    handleCartAddClick (productId) {
-      return function() {dispatch(addItemToCart(productId))}
+    handleCartAddClick (productId, userId) {
+      return function() {
+        dispatch(addItemToCart(productId))
+        dispatch(addToOrder(productId, userId))
+      }
     }
   }
 }

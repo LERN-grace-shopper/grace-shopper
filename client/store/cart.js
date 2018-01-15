@@ -1,9 +1,10 @@
-// import axios from 'axios'
+import axios from 'axios'
 
 // action types
 const ADD_CART_ITEM = 'ADD_CART_ITEM'
 const CHANGE_CART_ITEM_QUANT = 'CHANGE_CART_ITEM_QUANT'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
+const ADD_ITEM_TO_ORDER = 'ADD_ITEM_TO_ORDER'
 
 // initial state
 const defaultCart = []
@@ -15,6 +16,13 @@ export const addItemToCart = (productId, quantity=1) => ({
   type: ADD_CART_ITEM,
   productId,
   quantity
+})
+
+export const addItemToOrder = (productId, orderId, userId) => ({
+  type: ADD_ITEM_TO_ORDER,
+  productId,
+  orderId,
+  userId
 })
 
 export const changeCartItemQuant = (productId, quantity) => ({
@@ -29,6 +37,17 @@ export const removeItemFromCart = (productId) => ({
 })
 
 // thunk creators not needed since the cart is stored entirely clientside?
+export const addToOrder = (productId, userId, orderId) => {
+  return function (dispatch) {
+    return axios.post(`/api/orders/cart`, {/* orderID*/})
+    .then(res => {
+      dispatch(addItemToOrder(orderId))
+      return res.status(204).send("it works!")
+    })
+    .catch(err => console.error(err))
+
+  }
+}
 
 
 // reducer
@@ -46,6 +65,15 @@ export default function(state=defaultCart, action) {
         {
           productId: action.productId,
           quantity: action.quantity
+        }
+      ]
+    case ADD_ITEM_TO_ORDER:
+      return [
+        ...state, 
+        {
+          productId,
+          orderId,
+          userId
         }
       ]
 
