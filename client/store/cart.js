@@ -45,7 +45,6 @@ export const createOrder = (productId, userId, orderId) => {
       return res.status(204).send("it works!")
     })
     .catch(err => console.error(err))
-
   }
 }
 

@@ -17,7 +17,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
-const newOrder = userId => ({type: NEW_ORDER, userId});
+
 
 /**
  * THUNK CREATORS
@@ -28,7 +28,6 @@ export const me = () =>
       .then(res => {
         console.log("res data?", res.data)
         dispatch(getUser(res.data || defaultUser))
-        dispatch(newOrder(res.data.id))
       })
       .catch(err => console.log(err))
 
