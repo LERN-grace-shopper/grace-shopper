@@ -6,7 +6,6 @@ import { postNewReview } from '../store'
 
 const LeaveReview = (props) => {
   const {title, content, rating, handleChange, handleSubmit} = props
-  console.log(props)
 
   return (
     <div>
@@ -84,9 +83,7 @@ const mapDispatch = (dispatch, ownProps) => {
     },
     handleSubmit (event) {
       event.preventDefault()
-      console.log("Own Props! ", ownProps)
       const productId = ownProps.productId
-      console.log("ProductId: ", productId)
       // const name = event.target.name.value // see note above mapDispatch
       const title = event.target.title.value
       const content = event.target.content.value
