@@ -4,7 +4,7 @@ import axios from 'axios'
 const ADD_CART_ITEM = 'ADD_CART_ITEM'
 const CHANGE_CART_ITEM_QUANT = 'CHANGE_CART_ITEM_QUANT'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
-const ADD_ITEM_TO_ORDER = 'ADD_ITEM_TO_ORDER'
+const NEW_ORDER = 'NEW_ORDER'
 
 // initial state
 const defaultCart = []
@@ -18,11 +18,11 @@ export const addItemToCart = (productId, quantity=1) => ({
   quantity
 })
 
-export const addItemToOrder = (productId, orderId, userId) => ({
-  type: ADD_ITEM_TO_ORDER,
+export const newOrder = (productId, userId, orderId) => ({
+  type: NEW_ORDER,
   productId,
-  orderId,
-  userId
+  userId,
+  orderId
 })
 
 export const changeCartItemQuant = (productId, quantity) => ({
@@ -37,11 +37,11 @@ export const removeItemFromCart = (productId) => ({
 })
 
 // thunk creators not needed since the cart is stored entirely clientside?
-export const addToOrder = (productId, userId, orderId) => {
+export const createOrder = (productId, userId, orderId) => {
   return function (dispatch) {
     return axios.post(`/api/orders/cart`, {/* orderID*/})
     .then(res => {
-      dispatch(addItemToOrder(orderId))
+      dispatch(newOrder(orderId))
       return res.status(204).send("it works!")
     })
     .catch(err => console.error(err))
@@ -67,13 +67,13 @@ export default function(state=defaultCart, action) {
           quantity: action.quantity
         }
       ]
-    case ADD_ITEM_TO_ORDER:
+    case NEW_ORDER:
       return [
         ...state, 
         {
-          productId,
-          orderId,
-          userId
+          productId: action.productId,
+          orderId: action.orderId,
+          userId: action.userId
         }
       ]
 

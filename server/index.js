@@ -47,7 +47,7 @@ function isUser(req,res,next) {
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
-  db.models.user.findById(id)
+  db.models.user.findById(id, {include: [{all: true}]})
     .then(user => done(null, user))
     .catch(done))
 
