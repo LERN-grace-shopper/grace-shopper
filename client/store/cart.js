@@ -18,11 +18,10 @@ export const addItemToCart = (productId, quantity=1) => ({
   quantity
 })
 
-export const newOrder = (productId, userId, orderId) => ({
+export const newOrder = (orderId, userId) => ({
   type: NEW_ORDER,
-  productId,
-  userId,
-  orderId
+  orderId,
+  userId
 })
 
 export const changeCartItemQuant = (productId, quantity) => ({
@@ -37,16 +36,17 @@ export const removeItemFromCart = (productId) => ({
 })
 
 // thunk creators not needed since the cart is stored entirely clientside?
-export const createOrder = (productId, userId, orderId) => {
+export const fetchOrder = (userId) => {
   return function (dispatch) {
-    return axios.post(`/api/orders/cart`, {/* orderID*/})
-    .then(res => {
-      dispatch(newOrder(orderId))
-      return res.status(204).send("it works!")
+    return axios.post(`/api/orders/cart`, userId)
+    .then(order => {
+      dispatch(newOrder(order.id, order.userId))
     })
     .catch(err => console.error(err))
   }
 }
+
+
 
 
 // reducer
@@ -70,7 +70,6 @@ export default function(state=defaultCart, action) {
       return [
         ...state, 
         {
-          productId: action.productId,
           orderId: action.orderId,
           userId: action.userId
         }

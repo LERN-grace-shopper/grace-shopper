@@ -74,7 +74,7 @@ router.get('/:orderId', (req, res, next) => {
 }*/
 router.post('/cart', (req, res, next) => {
   const { userId } = req.body
-  Order.FindOrCreate({
+  Order.findOrCreate({
     where: {
       userId,
       isCart: true
