@@ -26,7 +26,6 @@ export const me = () =>
   dispatch =>
     axios.get('/auth/me')
       .then(res => {
-        console.log("res data?", res.data)
         dispatch(getUser(res.data || defaultUser))
       })
       .catch(err => console.log(err))
