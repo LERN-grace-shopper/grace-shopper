@@ -31,8 +31,9 @@ const submitCheckoutForm = fieldValues => ({
 
 export function sendCheckoutFormToServer(fieldValues, userId) {
   return function thunk(dispatch) {
-      axios.put(`/api/orders/${userId}`, fieldValues)
+      axios.put(`/api/orders/users/${userId}`, fieldValues)
       .then(res => {
+        console.log('RES.DATA', res.data)
           dispatch(submitCheckoutForm(res.data))
       })
   }
