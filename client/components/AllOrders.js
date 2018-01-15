@@ -9,13 +9,21 @@ const AllOrders = (props) => {
     const orders = props.userOrders
     return (
         <div>
-            <h2>Orders</h2>
+            <h2>My Orders</h2>
             {orders && orders.map(order => {
                 return (
                     <div key={order.id}>
-                        <h4>{order.id}</h4>
+                        <h4>Order id:{order.id}</h4>
+                        <h5>Status:{order.status}</h5>
                             <br />
-                        <h5>{order.status}</h5>
+                        <h5>Products</h5>
+                        {order.products.map(product => {
+                            return (
+                                <h5 key={product.id}>{product.title}</h5>
+                            )
+                            
+                        })}
+
                             <br />
                         <div>Address: {order.address}</div>
                     </div>
@@ -27,7 +35,7 @@ const AllOrders = (props) => {
 }
 
 const mapState = (state) => ({
-  userOrders: state.order.userOrders,
+  userOrders: state.order.userOrders
 })
 
 const mapDispatch = (dispatch, ownProps) => {
