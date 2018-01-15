@@ -9,7 +9,6 @@ import {fetchSingleProduct, addItemToCart, fetchReviewsByProductId} from '../sto
 const Product = props => {
   const {product, handleCartAddClick, numInCart} = props
 
-  console.log('numInCart:', numInCart)
   return (
     <div id="single-product-view">
       <h1 id="view-product-title">{product.title}</h1>
