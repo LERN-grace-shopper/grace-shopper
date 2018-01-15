@@ -40,10 +40,10 @@ const mapState = state => ({
 const mapDispatch = (dispatch, ownProps) => {
   dispatch(fetchSingleProduct(ownProps.match.params.productId))
   return {
-    handleCartAddClick (productId, userId) {
+    handleCartAddClick (productId) {
       return function() {
         dispatch(addItemToCart(productId))
-        dispatch(addToOrder(productId, userId))
+
       }
     }
   }

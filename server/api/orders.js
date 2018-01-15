@@ -73,10 +73,20 @@ router.get('/:orderId', (req, res, next) => {
   "userId": "1"
 }*/
 router.post('/cart', (req, res, next) => {
-  Order.create(req.body)
-    .then(createdOrder => {
-      console.log("order", createdOrder)
-      res.send(createdOrder);
+  const { userId } = req.body
+  Order.FindOrCreate({
+    where: {
+      userId,
+      isCart: true
+    }
+  })
+    .spread((createdOrder, bool) => {
+      if (bool) {
+        res.send(createdOrder)
+      } else {
+        console.log("order", createdOrder)
+        res.send(createdOrder);
+      }
     })
     .catch(next)
 });
