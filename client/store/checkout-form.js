@@ -1,3 +1,6 @@
+import axios from 'axios'
+import state from './index'
+
 // action types
 
 const CHECKOUT_FORM_ALTERED = 'CHECKOUT_FORM_ALTERED'
@@ -23,10 +26,18 @@ const submitCheckoutForm = fieldValues => ({
 
 // thunk creators
 
-export const sendCheckoutFormToServer = fieldValues =>
-  dispatch => {
-    // axios.post('/api/checkout') // etc. ?
+
+// can grab userId from the store, but need to check and see which order is open
+
+export function sendCheckoutFormToServer(fieldValues, userId) {
+  return function thunk(dispatch) {
+      axios.put(`/api/orders/users/${userId}`, fieldValues)
+      .then(res => {
+        console.log('RES.DATA', res.data)
+          dispatch(submitCheckoutForm(res.data))
+      })
   }
+}
 
 
 // reducer

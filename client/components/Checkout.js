@@ -5,15 +5,17 @@ import {Cart} from './index'
 import {alterCheckoutForm, sendCheckoutFormToServer} from '../store/checkout-form'
 
 const Checkout = (props) => {
-    const {name, address, handleChange, handleSubmit} = props
+    const {name, address, handleChange, handleSubmit, user} = props
 
     return (
         <div>
             <Cart />
-            <form id="submit-form">
-                <div>Name
+            <form id="submit-form" onSubmit={(event) => props.handleSubmit(user, event)}>
+                <div className="input-group input-group-lg">Name
                     <input
+                        className="form-control"
                         label="Name"
+                        name="name"
                         value={name}
                         onChange={handleChange}
                     />
@@ -22,12 +24,13 @@ const Checkout = (props) => {
                 <div>Address
                     <input
                         label="Address"
+                        name="address"
                         value={address}
                         onChange={handleChange}
                     />
                 </div>
                 <br />
-                <button type="Submit" onClick={handleSubmit}>Complete your Order</button>
+                <button className="btn btn-outline-primary" type="Submit">Complete your Order</button>
             </form>
         </div>
     )
@@ -40,19 +43,22 @@ const mapState = (state)  => {
     }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
     return {
         handleChange (event) {
             const alteration = {}
             alteration[event.target.name] = event.target.value
             dispatch(alterCheckoutForm(alteration))
         },
-        handleSubmit (event) {
+        handleSubmit (user, event) {
             event.preventDefault()
+            const name = event.target.name.value
+            const address = event.target.address.value
+            const userId = user.id
+            const status = "Processing"
             dispatch(sendCheckoutFormToServer({
-                // whatever data we need to send
-            }))
-            alert('checkout form submission not implemented')
+                name, address, status
+            }, userId))
         }
     }
 }
