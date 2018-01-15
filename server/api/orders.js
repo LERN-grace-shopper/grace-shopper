@@ -81,7 +81,6 @@ router.post('/cart', (req, res, next) => {
       if (bool) {
         res.send(createdOrder)
       } else {
-        console.log("order", createdOrder)
         res.send(createdOrder);
       }
     })

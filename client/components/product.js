@@ -4,11 +4,12 @@ import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
 import AllReviews from './AllReviews'
 import LeaveReview from './single-review'
-import {fetchSingleProduct, addItemToCart, addToOrder, fetchReviewsByProductId} from '../store'
+import {fetchSingleProduct, addToOrder, removeFromOrder, fetchReviewsByProductId} from '../store'
 
 const Product = props => {
-  const {product, handleCartAddClick} = props
-
+  const {product, handleCartAddClick, handleCartRemovalClick, order} = props
+  const cart = order && order.find(a => a.isCart === true)
+  const cartId = cart && cart.id
   return (
     <div id="single-product-view">
       <h1 id="view-product-title">{product.title}</h1>
@@ -17,7 +18,8 @@ const Product = props => {
       <br />
       <div>price: ${(product.price/100).toFixed(2)}</div>
       <br />
-      <button onClick={handleCartAddClick(product.id)}>Add to cart</button>
+      <button onClick={handleCartAddClick(product.id, cartId)}>Add to cart</button>
+      <button onClick={handleCartRemovalClick(product.id, cartId)}>remove from cart</button>
       <br />
       <div id="view-product-desc">Product Description:
       <br />
@@ -34,16 +36,23 @@ const Product = props => {
 }
 
 const mapState = state => ({
-  product: state.product.viewingProduct
+  product: state.product.viewingProduct,
+  order: state.user.orders
 })
 
 const mapDispatch = (dispatch, ownProps) => {
+
   dispatch(fetchSingleProduct(ownProps.match.params.productId))
   return {
-    handleCartAddClick (productId) {
+    handleCartAddClick: (productId, orderId) => {
       return function() {
-        dispatch(addItemToCart(productId))
+        dispatch(addToOrder(orderId, productId))
+      }
+    },
 
+    handleCartRemovalClick: (productId, orderId) => {
+      return function() {
+        dispatch(removeFromOrder(orderId, productId))
       }
     }
   }
