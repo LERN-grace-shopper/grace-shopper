@@ -7,7 +7,7 @@ import LeaveReview from './single-review'
 import {fetchSingleProduct, addItemToCart, fetchReviewsByProductId} from '../store'
 
 const Product = props => {
-  const {product, handleCartAddClick} = props
+  const {product, handleCartAddClick, numInCart} = props
 
   return (
     <div id="single-product-view">
@@ -17,7 +17,9 @@ const Product = props => {
       <br />
       <div>price: ${(product.price/100).toFixed(2)}</div>
       <br />
-      <button onClick={handleCartAddClick(product.id)}>Add to cart</button>
+      <button onClick={handleCartAddClick(product.id)}>
+        Add to cart 
+      </button> {numInCart ? `(${numInCart} in cart)` : ''}
       <br />
       <div id="view-product-desc">Product Description:
       <br />
@@ -33,9 +35,15 @@ const Product = props => {
   )
 }
 
-const mapState = state => ({
-  product: state.product.viewingProduct
-})
+const mapState = state => {
+  let itemInCart = state.cart.find(item => item.productId === state.product.viewingProduct.id) || {quantity: 0}
+
+  return {
+    product: state.product.viewingProduct,
+    numInCart: itemInCart.quantity
+  }
+  
+}
 
 const mapDispatch = (dispatch, ownProps) => {
   dispatch(fetchSingleProduct(ownProps.match.params.productId))
