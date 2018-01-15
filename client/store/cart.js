@@ -13,7 +13,7 @@ const total = 0
 
 
 // action creators
-export const addItemToCart = (productId, orderId, quantity=1) => ({
+export const addItemToCart = (orderId, productId, quantity=1) => ({
   type: ADD_CART_ITEM,
   productId,
   orderId,
@@ -58,26 +58,19 @@ export const removeFromOrder = (orderId, productId) => {
 export default function(state=defaultCart, action) {
   switch (action.type) {
     case ADD_CART_ITEM:
-      return {
-          productId: action.productId,
-          orderId: action.orderId,
-          quantity: action.quantity
-        }
-      
-
+      if (state.some(item => item.productId === action.productId)) {
+        return state.map(lineItem => (lineItem.productId === action.productId ? {...lineItem, quantity: action.quantity } : lineItem));
+      } else return [...state, { 
+        productId: action.productId,
+        orderId: action.orderId, 
+        quantity: action.quantity }];
     case CHANGE_CART_ITEM_QUANT:
-      return [
-        ...state.filter(lineItem => lineItem.productId !== action.productId),
-        {
-          productId: action.productId,
-          quantity: action.quantity
-        }
-      ]
+      return [...state.filter(lineItem => lineItem.productId !== action.productId), { productId: action.productId, quantity: action.quantity }];
 
     case REMOVE_CART_ITEM:
-      return state.filter(lineItem => lineItem.productId !== action.productId)
+      return state.filter(lineItem => lineItem.productId !== action.productId);
 
     default:
-      return state
+      return state;
   }
 }
