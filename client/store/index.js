@@ -6,12 +6,13 @@ import user from './user'
 import product from './product'
 import cart from './cart'
 import review from './review'
+import order from './order'
 
 import newReview from './review-form'
 import adminUserList from './admin-user-list'
 import checkout from './checkout-form'
 
-export const reducer = combineReducers({user, product, cart, review, checkout, adminUserList, newReview})
+export const reducer = combineReducers({user, product, cart, review, checkout, adminUserList, newReview, order})
 
 
 const middleware = composeWithDevTools(applyMiddleware(

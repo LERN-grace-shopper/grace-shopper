@@ -22,6 +22,7 @@ const Main = (props) => {
             ? <div>
               {/* The navbar will show these links after you log in */}
               <Link to="/home">{isAdmin ? 'Admin' : 'Home'}</Link>
+              <Link to="/orders">My Orders</Link>
               {
                 isAdmin && (
                   <div>

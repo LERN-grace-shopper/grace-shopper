@@ -2,14 +2,15 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {fetchAllOrders} from '../store'
+import {fetchOrdersByUserId} from '../store'
 
 const AllOrders = (props) => {
-
+    console.log('PROPS', props)
+    const orders = props.userOrders
     return (
         <div>
             <h2>Orders</h2>
-            {props.orders && props.orders.map(order => {
+            {orders && orders.map(order => {
                 return (
                     <div key={order.id}>
                         <h4>{order.id}</h4>
@@ -26,11 +27,12 @@ const AllOrders = (props) => {
 }
 
 const mapState = (state) => ({
-  orders: state.order.orders
+  userOrders: state.order.userOrders,
 })
 
 const mapDispatch = (dispatch, ownProps) => {
-  dispatch(fetchAllOrders())
+    console.log('ownProps', ownProps)
+  dispatch(fetchOrdersByUserId(3))
   return {}
 }
 

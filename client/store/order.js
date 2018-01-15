@@ -8,7 +8,8 @@ const GET_ORDERS_BY_USER_ID = 'GET_ORDERS_BY_USER_ID'
 // initial state
 
 const defaultOrders = {
-    orders: []
+    orders: [],
+    userOrders: []
 }
 
 // action creator
@@ -21,10 +22,10 @@ const getAllOrders = (allOrders) => {
     }
 }
 
-const getOrdersByUserId = (userId) => {
+const getOrdersByUserId = (userOrders) => {
     return {
         type: GET_ORDERS_BY_USER_ID,
-        userId
+        userOrders: userOrders
     }
 }
 
@@ -39,14 +40,16 @@ export function fetchAllOrders() {
     }
 }
 
-// export function fetchReviewsByProductId(productId) {
-//     return function thunk(dispatch) {
-//         axios.get(`/api/reviews/${productId}`)
-//         .then(res => {
-//             dispatch(getReviewsByProductId(res.data))
-//         })
-//     }
-// }
+export function fetchOrdersByUserId(userId) {
+    return function thunk(dispatch) {
+        axios.get(`/api/orders/users/${userId}`)
+        .then(res => {
+            console.log('RES', res)
+            console.log('RES.DATA', res.data)
+            dispatch(getOrdersByUserId(res.data))
+        })
+    }
+}
         
 
 // reducer
@@ -56,6 +59,10 @@ export default function(state = defaultOrders, action) {
         case GET_ALL_ORDERS:
         return Object.assign({}, state, {
             orders: action.orders
+        })
+        case GET_ORDERS_BY_USER_ID: 
+        return Object.assign({}, state, {
+            userOrders: action.userOrders
         })
     default: 
         return state
