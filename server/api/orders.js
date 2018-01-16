@@ -31,6 +31,12 @@ router.get('/users/:userId', (req, res, next) => {
   .catch(next)
 })
 
+router.get('/cart/:userId', (req, res, next) => {
+  Order.findOne( { include: [{ all: true }], where: {userId: req.params.userId, isCart: true}} )
+  .then(order => res.json(order))
+  .catch(next)
+})
+
 
 // PUT orders from "Complete my purchase" button
 router.put('/users/:userId', (req, res, next) => {
@@ -47,11 +53,11 @@ router.put('/users/:userId', (req, res, next) => {
 
 // GET single order by id
 //right now passwords and salts are coming too, but that needs to not be a thing....
-router.get('/:orderId', (req, res, next) => {
-  Order.findById(req.params.orderId, { include: [{ all: true }] })
-    .then(order => res.json(order))
-    .catch(next)
-});
+// router.get('/:orderId', (req, res, next) => {
+//   Order.findById(req.params.orderId, { include: [{ all: true }] })
+//     .then(order => res.json(order))
+//     .catch(next)
+// });
 
 
 
