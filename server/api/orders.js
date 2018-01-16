@@ -40,16 +40,12 @@ router.get('/users/:userId', (req, res, next) => {
 })
 
 // PUT orders from "Complete my purchase" button
-
 router.put('/users/:userId', (req, res, next) => {
-  console.log('REQ.BODY', req.body)
-  console.log("REQ.PARAMS", req.params.userId)
   Order.update(req.body, {
     where: { userId: req.params.userId, isCart: true}, returning: true
   })
   .then(order => { 
     const updated = order[1][0]
-    console.log('UPDATED', updated)
     res.json(order)})
   .catch(next)
 });
@@ -74,9 +70,19 @@ router.get('/:orderId', (req, res, next) => {
   "userId": "1"
 }*/
 router.post('/cart', (req, res, next) => {
-  Order.create(req.body)
-    .then(createdOrder => {
-      res.send(createdOrder);
+  const { userId } = req.body
+  Order.findOrCreate({
+    where: {
+      userId,
+      isCart: true
+    }
+  })
+    .spread((createdOrder, bool) => {
+      if (bool) {
+        res.send(createdOrder)
+      } else {
+        res.send(createdOrder);
+      }
     })
     .catch(next)
 });
@@ -125,15 +131,5 @@ router.put('/remove', (req, res, next) => {
     .catch(next)
 });
 
-//I have not added total calculation yet, will do that later. this would literally just change the status on the order
-router.put('/complete', (req, res, next) => {
-  Order.findById(req.body.id) //or req.body.orderId???? idk
-    .then(order => {
-      order.update({ status: 'Processing', isCart: false }, { returning: true })
-        .then(completeOrder => res.json(completeOrder))
-        .catch(next)
-    })
-    .catch(next)
-})
 
 module.exports = router;

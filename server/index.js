@@ -47,7 +47,7 @@ function isUser(req,res,next) {
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
-  db.models.user.findById(id)
+  db.models.user.findById(id, {include: [{all: true}]})
     .then(user => done(null, user))
     .catch(done))
 
@@ -73,11 +73,11 @@ const createApp = () => {
   app.use(passport.session())
 
   //session-viewing middleware
-  // app.use(function(req, res, next) {
-  //   console.log("SESSION: ", req.session);
-  //   //console.log("USER ", req.user);
-  //   next();
-  // });
+  app.use(function(req, res, next) {
+    console.log("SESSION: ", req.session);
+    console.log("USER ", req.user);
+    next();
+  });
 
   //add cart to the session
   app.use((req, res, next) => {
