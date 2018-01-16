@@ -19,13 +19,17 @@ const AllOrders = (props) => {
                         <h5>Products</h5>
                         {order.products.map(product => {
                             return (
-                                <h5 key={product.id}>{product.title}</h5>
+                                <div key={product.id}>
+                                <h5>{product.title}</h5>
+                                <h5>Quantity:{product.ProductOrders.quantity}</h5>
+                                </div>
                             )
                             
                         })}
 
                             <br />
                         <div>Address: {order.address}</div>
+                        
                     </div>
                 )
             })}
