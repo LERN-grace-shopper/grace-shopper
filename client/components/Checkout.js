@@ -5,6 +5,7 @@ import {Cart} from './index'
 import {alterCheckoutForm, sendCheckoutFormToServer} from '../store/checkout-form'
 
 const Checkout = (props) => {
+
     const {name, address, handleChange, handleSubmit, user} = props
 
     return (
@@ -54,10 +55,10 @@ const mapDispatch = (dispatch, ownProps) => {
             event.preventDefault()
             const name = event.target.name.value
             const address = event.target.address.value
-            const userId = user.id
+            const userId = +user.id
             const status = "Processing"
             const isCart = false
-            
+
             dispatch(sendCheckoutFormToServer({
                 name, address, status, isCart
             }, userId))
