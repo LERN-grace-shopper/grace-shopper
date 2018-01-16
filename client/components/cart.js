@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
+import { fetchCart } from '../store'
 
 
 const Cart = props => {
@@ -43,8 +44,10 @@ const mapState = state => ({
     }))
 })
 
-// const mapDispatch = dispatch => ({
+const mapDispatch = (dispatch, ownProps) => {
+  console.log(ownProps)
+  dispatch(fetchCart(+ownProps.match.params.userId))
+  return {}
+}
 
-// })
-
-export default withRouter(connect(mapState)(Cart))
+export default withRouter(connect(mapState, mapDispatch)(Cart))

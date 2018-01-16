@@ -37,7 +37,7 @@ router.put('/users/:userId', (req, res, next) => {
   Order.update(req.body, {
     where: { userId: req.params.userId, isCart: true}, returning: true
   })
-  .then(order => { 
+  .then(order => {
     const updated = order[1][0]
     res.json(order)})
   .catch(next)
