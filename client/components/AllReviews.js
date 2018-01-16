@@ -26,7 +26,7 @@ const AllReviews = (props) => {
 }
 
 const mapState = (state) => ({
-  reviews: state.review.reviews
+  reviews: state.review.reviews,
 })
 
 const mapDispatch = (dispatch, ownProps) => {

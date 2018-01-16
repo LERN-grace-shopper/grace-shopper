@@ -23,21 +23,14 @@ router.get('/', (req, res, next) => {
   }
 });
 
-// GET orders by userId
+// GET orders (with products and quantities in the order) by userId
 
 router.get('/users/:userId', (req, res, next) => {
-  if (req.query.isCart) {
-    Order.findOne({
-      where: { isCart: true }
-    })
-      .then(cart => res.json(cart))
-      .catch(next)
-  } else {
-    Order.findAll()
-      .then(orders => res.json(orders))
-      .catch(next)
-  }
+  Order.findAll( { include: [{ all: true }], where: {userId: req.params.userId}} )
+  .then(orders => res.json(orders))
+  .catch(next)
 })
+
 
 // PUT orders from "Complete my purchase" button
 router.put('/users/:userId', (req, res, next) => {
