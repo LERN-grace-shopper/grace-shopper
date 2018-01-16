@@ -12,7 +12,6 @@ router.post('/login', (req, res, next) => {
       } else {
          Order.findOrCreate({where: { userId: user.id, isCart: true }})
            .spread((createdOrder, bool) => {
-             console.log(createdOrder);
            })
            .catch(next);
         req.login(user, err => (err ? next(err) : res.json(user)))
