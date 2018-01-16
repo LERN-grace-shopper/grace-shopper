@@ -32,7 +32,7 @@ const Cart = props => {
     <h5>subtotal: ${(subtotal/100).toFixed(2)}</h5>
     <h5>total: ${(total/100).toFixed(2)}</h5>
     <div>
-      <form id="submit-form" onSubmit={(event) => props.handleSubmit(user, event)}>
+      <form id="submit-form" onSubmit={(event) => handleSubmit(user, total, event)}>
           <div className="input-group input-group-lg">Name
               <input
                   className="form-control"
@@ -60,6 +60,7 @@ const Cart = props => {
 
 
 const mapState = state => ({
+  user: state.user,
   cart: state.cart
 })
 
@@ -71,16 +72,17 @@ const mapDispatch = (dispatch, ownProps) => {
         alteration[event.target.name] = event.target.value
         dispatch(alterCheckoutForm(alteration))
     },
-    handleSubmit (user, event) {
+    handleSubmit (user, orderTotal, event) {
         event.preventDefault()
+        const total = +(orderTotal/100).toFixed(2)
         const name = event.target.name.value
         const address = event.target.address.value
-        const userId = +user.id
+        const userId = +ownProps.match.params.userId
         const status = "Processing"
         const isCart = false
 
         dispatch(sendCheckoutFormToServer({
-            name, address, status, isCart
+            name, address, status, total, isCart
         }, userId))
     }
   }

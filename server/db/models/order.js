@@ -6,6 +6,7 @@ const Order = db.define('order', {
     type: Sequelize.ENUM('Created', 'Processing', 'Canceled', 'Completed'),
     defaultValue: 'Created'
   },
+  name: Sequelize.STRING,
   address: {
     type: Sequelize.STRING
   },
