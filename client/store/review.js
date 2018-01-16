@@ -49,14 +49,25 @@ export function fetchReviewsByProductId(productId) {
 }
 
 // I think this thunk will work, it's just not being passed the proper data
+// export function postNewReview (newReview) {
+//   return function (dispatch) {
+//     axios.post('/api/reviews', newReview)
+//       .then(res => res.data)
+//       .then(addedReview => dispatch(getReviewsByProductId(addedReview.productId)))
+//       .catch(err => console.error(err))
+//   }
+// }
+
 export function postNewReview (newReview) {
-  return function (dispatch) {
-    axios.post('/api/reviews', newReview)
-      .then(res => res.data)
-      .then(addedReview => dispatch(getReviewsByProductId(addedReview.productId)))
-      .catch(err => console.error(err))
+    return function (dispatch) {
+      axios.post('/api/reviews', newReview)
+        .then(res => res.data)
+        .then(newReview => {
+            dispatch(fetchReviewsByProductId(newReview.productId))
+        })
+        .catch(err => console.error(err))
+    }
   }
-}
 
 export function fetchReviewsForAllProducts() {
     return function thunk(dispatch) {

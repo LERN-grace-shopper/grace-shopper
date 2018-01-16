@@ -63,8 +63,7 @@ const LeaveReview = (props) => {
 
 const mapState = (state) => {
   return {
-    user: state.user, // we will want the user's id to associate with the review (as userId)
-    // name: state.newReview.name,
+    user: state.user,
     title: state.newReview.title,
     content: state.newReview.content,
     rating: state.newReview.rating,
@@ -84,14 +83,16 @@ const mapDispatch = (dispatch, ownProps) => {
     handleSubmit (user, event) {
       event.preventDefault()
       const productId = ownProps.productId
-      // const name = event.target.name.value // see note above mapDispatch
-      console.log('event.target', event.target)
       const title = event.target.title.value
       const content = event.target.content.value
       const rating = event.target.rating.value
       const userId = user.id
-      dispatch(postNewReview({title, content, rating, productId, userId})) // will also want userId
-      dispatch(composeReview(''))
+      dispatch(postNewReview({title, content, rating, productId, userId}))
+      dispatch(composeReview({
+        title: '',
+        content: '',
+        rating: ''
+      }))
     }
   }
 }
