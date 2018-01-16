@@ -56,8 +56,10 @@ const mapDispatch = (dispatch, ownProps) => {
             const address = event.target.address.value
             const userId = user.id
             const status = "Processing"
+            const isCart = false
+            
             dispatch(sendCheckoutFormToServer({
-                name, address, status
+                name, address, status, isCart
             }, userId))
         }
     }

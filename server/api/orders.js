@@ -23,13 +23,14 @@ router.get('/', (req, res, next) => {
   }
 });
 
-// GET orders by userId
+// GET orders (with products and quantities in the order) by userId
 
 router.get('/users/:userId', (req, res, next) => {
   Order.findAll( { include: [{ all: true }], where: {userId: req.params.userId}} )
   .then(orders => res.json(orders))
   .catch(next)
 })
+
 
 // PUT orders from "Complete my purchase" button
 router.put('/users/:userId', (req, res, next) => {
