@@ -56,13 +56,16 @@ export const removeFromOrder = (orderId, productId) => {
       .then(res => {
         dispatch(addItemToCart(res.data.orderId, res.data.productId, res.data.quantity))
       })
+      .catch(err => console.error(err))
   }
 }
 
 export const fetchCart = (userId) => {
   return function (dispatch) {
-    return axios.get(`/api/orders/users/${userId}`)
-      .then(res => dispatch(getCart(res.data)))
+    return axios.get(`/api/orders/cart/${userId}`)
+      .then(res => {
+        dispatch(getCart(res.data.products))
+      })
       .catch(err => console.error(err))
   }
 }
@@ -85,7 +88,7 @@ export default function(state=defaultCart, action) {
       return state.filter(lineItem => lineItem.productId !== action.productId);
 
     case GET_CART:
-      return [...state, action.order]
+      return [...action.order]
 
     default:
       return state;

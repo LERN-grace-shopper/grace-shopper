@@ -7,7 +7,7 @@ import { fetchCart } from '../store'
 
 const Cart = props => {
   let subtotal = props.cart.reduce((subtotal, product) => (
-    subtotal + product.price * product.cartQuant
+    subtotal + product.price * product.ProductOrders.quantity
   ), 0)
 
   let total = subtotal * 1.0875
@@ -22,7 +22,7 @@ const Cart = props => {
           <h6>{product.title}</h6>
         </Link>
         <div>${(product.price/100).toFixed(2)} each</div>
-        <div>{product.cartQuant} in cart</div>
+        <div>{product.ProductOrders.quantity} in cart</div>
       </ul>
     ))}
   </li>
@@ -36,16 +36,10 @@ const Cart = props => {
 
 
 const mapState = state => ({
-  cart: state.product.allProducts
-    .filter(prod => state.cart.some(item => item.productId === prod.id))
-    .map(prod => ({
-      ...prod,
-      cartQuant: state.cart.find(item => item.productId === prod.id).quantity
-    }))
+  cart: state.cart
 })
 
 const mapDispatch = (dispatch, ownProps) => {
-  console.log(ownProps)
   dispatch(fetchCart(+ownProps.match.params.userId))
   return {}
 }
