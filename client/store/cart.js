@@ -61,14 +61,24 @@ export const removeFromOrder = (orderId, productId) => {
       .then(res => {
         dispatch(addItemToCart(res.data.orderId, res.data.productId, res.data.quantity))
       })
+      .catch(err => console.error(err))
   }
 }
 
+<<<<<<< HEAD
 //as of now, this one is completely non-functional
 export const fetchCart = () => {
   return function(dispatch) {
     return axios.post('/api/cart')
       .then(res => dispatch(getCart(res.data)))
+=======
+export const fetchCart = (userId) => {
+  return function (dispatch) {
+    return axios.get(`/api/orders/cart/${userId}`)
+      .then(res => {
+        dispatch(getCart(res.data.products))
+      })
+>>>>>>> bb82997c3b476e98b4a4406399f6d2c10f96825c
       .catch(err => console.error(err))
   }
 }
@@ -88,6 +98,13 @@ export default function(state=defaultCart, action) {
         return action.order;
     case CHANGE_CART_ITEM_QUANT:
       return [...state.filter(lineItem => lineItem.productId !== action.productId), { productId: action.productId, quantity: action.quantity }];
+
+    case REMOVE_CART_ITEM:
+      return state.filter(lineItem => lineItem.productId !== action.productId);
+
+    case GET_CART:
+      return [...action.order]
+
     default:
       return state;
   }

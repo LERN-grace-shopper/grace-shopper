@@ -44,6 +44,22 @@ const products = [
     inventoryQuantity: 60,
     categories: 'Positivity',
     photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/AdulaireSuisse2.jpg/218px-AdulaireSuisse2.jpg'
+  },
+  {
+    title: 'Peridot',
+    description: 'A beautiful stone that enhances love and promotes positivity.',
+    price: 1500,
+    inventoryQuantity: 60,
+    categories: 'Positivity',
+    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/AdulaireSuisse2.jpg/218px-AdulaireSuisse2.jpg'
+  },
+  {
+    title: 'Garnet',
+    description: 'A beautiful stone that enhances love and promotes positivity.',
+    price: 2200,
+    inventoryQuantity: 60,
+    categories: 'Positivity',
+    photoUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/AdulaireSuisse2.jpg/218px-AdulaireSuisse2.jpg'
   }
 ]
 

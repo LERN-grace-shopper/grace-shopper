@@ -10,7 +10,7 @@ const Products = (props) => {
       <ul id="flex-container">
         {props.products && props.products.map(product => {
           return (
-            <li>
+            <li key={product.id}>
             <Link to={`/products/${product.id}`}>
             <img src={product.photoUrl} alt="product photoUrl loading fail" />
               
