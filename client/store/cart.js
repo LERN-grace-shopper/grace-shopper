@@ -5,6 +5,7 @@ const ADD_CART_ITEM = 'ADD_CART_ITEM'
 const CHANGE_CART_ITEM_QUANT = 'CHANGE_CART_ITEM_QUANT'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
 const ADD_TO_ORDER = 'ADD_TO_ORDER'
+const GET_CART = 'GET_CART'
 
 
 // initial state
@@ -28,10 +29,15 @@ export const changeCartItemQuant = (productId, quantity) => ({
   quantity
 })
 
+export const getCart = (order) => ({
+  type: GET_CART,
+  order
+})
+
 
 
 // thunk creators not needed since the cart is stored entirely clientside?
-export const addToOrder = (orderId, productId) => { 
+export const addToOrder = (orderId, productId) => {
   return function (dispatch) {
     const order = {orderId, productId}
     return axios.put(`/api/orders/add`, order)
@@ -53,6 +59,14 @@ export const removeFromOrder = (orderId, productId) => {
   }
 }
 
+export const fetchCart = (userId) => {
+  return function (dispatch) {
+    return axios.get(`/api/orders/users/${userId}`)
+      .then(res => dispatch(getCart(res.data)))
+      .catch(err => console.error(err))
+  }
+}
+
 
 // reducer
 export default function(state=defaultCart, action) {
@@ -60,15 +74,18 @@ export default function(state=defaultCart, action) {
     case ADD_CART_ITEM:
       if (state.some(item => item.productId === action.productId)) {
         return state.map(lineItem => (lineItem.productId === action.productId ? {...lineItem, quantity: action.quantity } : lineItem));
-      } else return [...state, { 
+      } else return [...state, {
         productId: action.productId,
-        orderId: action.orderId, 
+        orderId: action.orderId,
         quantity: action.quantity }];
     case CHANGE_CART_ITEM_QUANT:
       return [...state.filter(lineItem => lineItem.productId !== action.productId), { productId: action.productId, quantity: action.quantity }];
 
     case REMOVE_CART_ITEM:
       return state.filter(lineItem => lineItem.productId !== action.productId);
+
+    case GET_CART:
+      return [...state, action.order]
 
     default:
       return state;
