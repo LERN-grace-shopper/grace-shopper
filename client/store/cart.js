@@ -5,6 +5,7 @@ const ADD_CART_ITEM = 'ADD_CART_ITEM'
 const CHANGE_CART_ITEM_QUANT = 'CHANGE_CART_ITEM_QUANT'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
 const ADD_TO_ORDER = 'ADD_TO_ORDER'
+const FETCH_CART = 'FETCH_CART'
 
 
 // initial state
@@ -20,7 +21,11 @@ export const addItemToCart = (orderId, productId, quantity=1) => ({
   quantity
 })
 
+export const getCart = (order) => ({
+  type: FETCH_CART,
+  order, //{orderId, productId, quantity}
 
+})
 
 export const changeCartItemQuant = (productId, quantity) => ({
   type: CHANGE_CART_ITEM_QUANT,
@@ -31,6 +36,7 @@ export const changeCartItemQuant = (productId, quantity) => ({
 
 
 // thunk creators not needed since the cart is stored entirely clientside?
+
 export const addToOrder = (orderId, productId) => { 
   return function (dispatch) {
     const order = {orderId, productId}
@@ -53,6 +59,15 @@ export const removeFromOrder = (orderId, productId) => {
   }
 }
 
+//as of now, this one is completely non-functional
+export const fetchCart = () => {
+  return function(dispatch) {
+    return axios.post('/api/cart')
+      .then(res => dispatch(getCart(res.data)))
+      .catch(err => console.error(err))
+  }
+}
+
 
 // reducer
 export default function(state=defaultCart, action) {
@@ -64,12 +79,10 @@ export default function(state=defaultCart, action) {
         productId: action.productId,
         orderId: action.orderId, 
         quantity: action.quantity }];
+    case FETCH_CART: 
+        return action.order;
     case CHANGE_CART_ITEM_QUANT:
       return [...state.filter(lineItem => lineItem.productId !== action.productId), { productId: action.productId, quantity: action.quantity }];
-
-    case REMOVE_CART_ITEM:
-      return state.filter(lineItem => lineItem.productId !== action.productId);
-
     default:
       return state;
   }
