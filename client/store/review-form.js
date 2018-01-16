@@ -1,18 +1,18 @@
 export const COMPOSE_REVIEW = 'COMPOSE_REVIEW'
 
 const inputValues = {
-  name: '',
+  // name: '',
   title: '',
   content: '',
   rating: '', // will need to become an integer?
 }
 
-export const composeReview = change => {
+export const composeReview = change => ({
   type: COMPOSE_REVIEW,
   change
-}
+})
 
-export default function (state = '', action) {
+export default function (state = inputValues, action) {
   switch (action.type) {
     case COMPOSE_REVIEW:
       // console.log('INSIDE of COMPOSE_REVIEW') // not logging
