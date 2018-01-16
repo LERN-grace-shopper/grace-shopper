@@ -39,13 +39,19 @@ const AllOrders = (props) => {
 
 }
 
-const mapState = (state) => ({
+const mapState = (state) => {
+    console.log('state in mapState', state)
+    return {
+        
   userOrders: state.order.userOrders,
   user: state.user
-})
+}
+}
+    
+    
 
 const mapDispatch = (dispatch, ownProps) => {
-    console.log('ownProps', ownProps)
+    console.log('ownProps in mapDispatch', ownProps)
     const userId = ownProps.match.params.userId
     dispatch(fetchOrdersByUserId(userId))
   return {}
