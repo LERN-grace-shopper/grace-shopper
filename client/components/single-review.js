@@ -5,11 +5,11 @@ import { composeReview } from '../store/review-form'
 import { postNewReview } from '../store'
 
 const LeaveReview = (props) => {
-  const {title, content, rating, handleChange, handleSubmit} = props
+  const {title, content, rating, handleChange, handleSubmit, user} = props
 
   return (
     <div>
-      <form id="submit-review">
+      <form id="submit-review" onSubmit={(event) => props.handleSubmit(user, event)}>
         {/* <div>Name:
           <br />
           <input
@@ -55,7 +55,7 @@ const LeaveReview = (props) => {
           />
         </div>
         <br />
-        <button type="Submit" onClick={handleSubmit}>Submit Review</button>
+        <button type="Submit" >Submit Review</button>
       </form>
     </div>
   )
@@ -63,8 +63,7 @@ const LeaveReview = (props) => {
 
 const mapState = (state) => {
   return {
-    user: state.user, // we will want the user's id to associate with the review (as userId)
-    // name: state.newReview.name,
+    user: state.user,
     title: state.newReview.title,
     content: state.newReview.content,
     rating: state.newReview.rating,
@@ -81,15 +80,19 @@ const mapDispatch = (dispatch, ownProps) => {
       changedInputVals[event.target.name] = event.target.value
       dispatch(composeReview(changedInputVals))
     },
-    handleSubmit (event) {
+    handleSubmit (user, event) {
       event.preventDefault()
       const productId = ownProps.productId
-      // const name = event.target.name.value // see note above mapDispatch
       const title = event.target.title.value
       const content = event.target.content.value
       const rating = event.target.rating.value
-      dispatch(postNewReview({title, content, rating, productId})) // will also want userId
-      dispatch(composeReview(''))
+      const userId = user.id
+      dispatch(postNewReview({title, content, rating, productId, userId}))
+      dispatch(composeReview({
+        title: '',
+        content: '',
+        rating: ''
+      }))
     }
   }
 }

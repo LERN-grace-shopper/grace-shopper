@@ -5,6 +5,7 @@ import {withRouter, Link} from 'react-router-dom'
 import {fetchReviewsByProductId} from '../store'
 
 const AllReviews = (props) => {
+    console.log('PROPS IN ALL REVIEWS', props)
 
     return (
         <div>
