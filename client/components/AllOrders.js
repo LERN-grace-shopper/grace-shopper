@@ -7,6 +7,7 @@ import {fetchOrdersByUserId} from '../store'
 const AllOrders = (props) => {
     console.log('PROPS', props)
     const orders = props.userOrders
+
     return (
         <div>
             <h2>My Orders</h2>
@@ -39,12 +40,14 @@ const AllOrders = (props) => {
 }
 
 const mapState = (state) => ({
-  userOrders: state.order.userOrders
+  userOrders: state.order.userOrders,
+  user: state.user
 })
 
 const mapDispatch = (dispatch, ownProps) => {
     console.log('ownProps', ownProps)
-  dispatch(fetchOrdersByUserId(3))
+    const userId = ownProps.match.params.userId
+    dispatch(fetchOrdersByUserId(userId))
   return {}
 }
 

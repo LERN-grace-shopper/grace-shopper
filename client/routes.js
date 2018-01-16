@@ -33,7 +33,7 @@ class Routes extends Component {
                 <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/home" component={UserHome} />
-                  <Route path="/orders" component={AllOrders} />
+                  <Route path="/orders/users/:userId" component={AllOrders} />
                   {
                     isAdmin && (
                       <div>

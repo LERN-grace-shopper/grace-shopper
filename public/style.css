@@ -29,3 +29,61 @@ form div {
   flex-direction: column;
   align-items: center;
 }
+
+.container {
+  display: flex;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	color: brown;
+	font-family: 'Raleway', sans-serif;
+	background-color: white;
+}
+
+ul#flex-container {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	flex-wrap: wrap;
+	display: flex;
+  align-content: flex-end;
+  text-transform: uppercase;
+
+}
+
+img {
+  border-radius: 2%;
+}
+
+ul li {
+	/* flex-grow: 1; */
+	height: 175px;
+	width: 300px;
+	padding-top: 45px;
+	font-size: 1em;
+	text-align: left;
+  align-self: flex-end;
+  margin: 20px;
+  margin-bottom: 50px;
+}
+
+ul li img {
+	width: 100%;
+	flex-grow: 1;
+} 
+
+span {
+	
+}
+
+/*
+ul li:first-child {}
+ul li:nth-child(2) {}
+ul li:nth-child(3) {}
+ul li:nth-child(4) {}
+ul li:nth-child(5) {}
+ul li:last-child {background: blue;}
+

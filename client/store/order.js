@@ -31,6 +31,7 @@ const getOrdersByUserId = (userOrders) => {
 
 // thunk creator
 
+// just for admins!
 export function fetchAllOrders() {
     return function thunk(dispatch) {
         axios.get('/api/orders')
@@ -40,12 +41,11 @@ export function fetchAllOrders() {
     }
 }
 
+// for users
 export function fetchOrdersByUserId(userId) {
     return function thunk(dispatch) {
         axios.get(`/api/orders/users/${userId}`)
         .then(res => {
-            console.log('RES', res)
-            console.log('RES.DATA', res.data)
             dispatch(getOrdersByUserId(res.data))
         })
     }

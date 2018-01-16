@@ -35,14 +35,11 @@ router.get('/users/:userId', (req, res, next) => {
 // PUT orders from "Complete my purchase" button
 
 router.put('/users/:userId', (req, res, next) => {
-  console.log('REQ.BODY', req.body)
-  console.log("REQ.PARAMS", req.params.userId)
   Order.update(req.body, {
     where: { userId: req.params.userId, isCart: true}, returning: true
   })
   .then(order => { 
     const updated = order[1][0]
-    console.log('UPDATED', updated)
     res.json(order)})
   .catch(next)
 });
