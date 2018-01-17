@@ -13,7 +13,7 @@ const yellAtHackers = () => {
 
 const AllUsers = props => {
   const {isAdmin, allUsers, handleUserDeleteClick, handleUserToggleAdminClick} = props
-  alert('api routes for deleting and updating users do not exist, page is nonfunctional')
+
   return (!isAdmin ? 'how are you seeing this page, hacker?' : (
   <li>
     {allUsers && allUsers.map(user => (

@@ -33,9 +33,9 @@ const Product = props => {
         Product Description:
         <br />
         {product.description}
-      </div>
+        <br />
       <br />
-      <div id="view-product-cats">
+    
         Product Categories:
         <br />
         {product.categories}

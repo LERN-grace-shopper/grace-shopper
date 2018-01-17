@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Route, Switch, Router} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, Signup, UserHome, Cart, Products, Product, Checkout, DataVisualization, AllUsers, AllOrders} from './components'
+import {Main, Login, Signup, UserHome, Cart, Products, Product, Checkout, DataVisualization, AllUsers, AllOrders, NewProduct} from './components'
 import {me, fetchCart} from './store'
 
 /**
@@ -40,6 +40,7 @@ class Routes extends Component {
                         <Route path="/data-visualization" component={DataVisualization} />
                         <Route exact path="/users" component={AllUsers} />
                         <Route path="/orders/all-orders" component={AllOrders} />
+                        <Route exact path="/products/add/new-product" component={NewProduct} />
                       </div>
                     )
                   }
