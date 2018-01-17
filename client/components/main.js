@@ -31,6 +31,7 @@ const Main = (props) => {
                     <Link to="/data-visualization">Data Visualization</Link>
                     <Link to="/users"> All users </Link>
                     <Link to="/orders/all-orders"> All orders </Link>
+                    <Link to="/products/add/new-product"> Add product </Link>
                   </div>
                 )
               }

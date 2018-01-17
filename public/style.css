@@ -32,12 +32,13 @@ form div {
 }
 
 html, body {
-	margin: 0;
-	padding: 0;
+	margin: 10px;
+	padding: 10px;
 	height: 100%;
-	color: brown;
+	color: #003300;
 	font-family: 'Raleway', sans-serif;
-	background-color: white;
+	background-color:  #e6ffe6;
+	
 }
 
 ul#flex-container {
@@ -73,5 +74,7 @@ ul li img {
 } 
 
 .order-box {
-	border: 1px
+	border: 1px solid black;
+	margin: 10px;
+	padding: 10px;
 }

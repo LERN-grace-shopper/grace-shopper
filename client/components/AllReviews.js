@@ -8,13 +8,13 @@ const AllReviews = (props) => {
 
     return (
         <div>
-            <h2>Reviews</h2>
+            <h5>Reviews</h5>
             {props.reviews && props.reviews.map(review => {
                 return (
                     <div key={review.id}>
-                        <h4>{review.title}</h4>
+                        <h6>{review.title}</h6>
                             <br />
-                        <h5>{review.content}</h5>
+                        <h6>{review.content}</h6>
                             <br />
                         <div>Rating: {review.rating}</div>
                     </div>
