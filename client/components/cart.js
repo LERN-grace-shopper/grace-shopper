@@ -7,9 +7,11 @@ import {alterCheckoutForm, sendCheckoutFormToServer} from '../store/checkout-for
 
 
 const Cart = props => {
-  let subtotal = props.cart.reduce((subtotal, product) => (
-    subtotal + product.price * product.ProductOrders.quantity
-  ), 0)
+  console.log(props.cart)
+  let subtotal = props.cart.reduce((subtotal, product) => {
+    console.log("PRODUCT: ", product)
+    return subtotal + product.price * product.ProductOrders.quantity
+  }, 0)
 
   let total = subtotal * 1.0875
 

@@ -2,34 +2,37 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {withRouter, Link} from 'react-router-dom'
-import {fetchOrdersByUserId} from '../store'
+import {fetchOrdersByUserId, fetchAllOrders} from '../store'
 
 const AllOrders = (props) => {
-    console.log('PROPS', props)
-    const orders = props.userOrders
+
+    const orders = props.orders
 
     return (
+
         <div>
-            <h2>My Orders</h2>
+            <h2>Orders</h2>
+            <br />
             {orders && orders.map(order => {
                 return (
-                    <div key={order.id}>
-                        <h4>Order id:{order.id}</h4>
-                        <h5>Status:{order.status}</h5>
+                    <div className="order-box" key={order.id}>
+                        <h4>Order id: {order.id}</h4>
+                        <h5>Status: {order.status}</h5>
                             <br />
                         <h5>Products</h5>
                         {order.products.map(product => {
                             return (
                                 <div key={product.id}>
                                 <h5>{product.title}</h5>
-                                <h5>Quantity:{product.ProductOrders.quantity}</h5>
+                                <h5>Quantity: {product.ProductOrders.quantity}</h5>
+                                <h5>Address: {order.address}</h5>
                                 </div>
                             )
                             
                         })}
 
                             <br />
-                        <div>Address: {order.address}</div>
+                        
                         
                     </div>
                 )
@@ -40,20 +43,20 @@ const AllOrders = (props) => {
 }
 
 const mapState = (state) => {
-    console.log('state in mapState', state)
-    return {
-        
-  userOrders: state.order.userOrders,
-  user: state.user
-}
+    if (state.user.isAdmin) {
+        return {
+            orders: state.order.orders
+        }
+    } else {
+        return {
+            orders: state.order.orders.filter(order => order.userId === state.user.id)
+        }
+    }
 }
     
     
-
 const mapDispatch = (dispatch, ownProps) => {
-    console.log('ownProps in mapDispatch', ownProps)
-    const userId = ownProps.match.params.userId
-    dispatch(fetchOrdersByUserId(userId))
+    dispatch(fetchAllOrders())
   return {}
 }
 
