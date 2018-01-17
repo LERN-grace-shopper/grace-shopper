@@ -59,7 +59,8 @@ export const getCart = (order) => ({
 
 
 // thunk creators not needed since the cart is stored entirely clientside?
-export const addToOrder = (orderId, productId) => {
+
+export const addToOrder = (orderId, productId) => { 
   return function (dispatch) {
     const order = {orderId, productId}
     return axios.put(`/api/orders/add`, order)
@@ -121,8 +122,22 @@ export default function(state=defaultCart, action) {
     
             return state.map(item => {
               if (item.id === action.order.productId) {
-                return Object.assign({}, item, {ProductOrders: Object.assign({}, item.ProductOrders, {quantity: item.ProductOrders.quantity-1})})
-              } 
+                return Object.assign({}, item, {
+                  ProductOrders: Object.assign(
+                    {},
+                    item.ProductOrders,
+                    { quantity: item.ProductOrders.quantity - 1 }
+                  )
+                });
+              } else {
+                return Object.assign({}, item, {
+                  ProductOrders: Object.assign(
+                    {},
+                    item.ProductOrders,
+                    { quantity: 1 }
+                  )
+                });
+              }
           }
       )
     

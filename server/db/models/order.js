@@ -10,8 +10,14 @@ const Order = db.define('order', {
   address: {
     type: Sequelize.STRING
   },
-  total: {
+  name: {
+    type: Sequelize.STRING
+  },
+  priceAtCheckout: {
     type: Sequelize.INTEGER
+  },
+  sessionId: {
+    type: Sequelize.STRING
   },
   isCart: {
     type: Sequelize.BOOLEAN,
