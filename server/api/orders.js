@@ -31,8 +31,8 @@ router.get('/users/:userId', (req, res, next) => {
   .catch(next)
 })
 
-router.get('/cart/:userId', (req, res, next) => {
-  Order.findOne( { include: [{ all: true }], where: {userId: req.params.userId, isCart: true}} )
+router.get('/cart', (req, res, next) => {
+  Order.findOne( { include: [{ all: true }], where: {userId: req.user.id, isCart: true}} )
   .then(order => res.json(order))
   .catch(next)
 })

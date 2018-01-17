@@ -48,12 +48,15 @@ const Product = props => {
 
 
 const mapState = state => {
-  let itemInCart = state.cart.find(item => item.productId === state.product.viewingProduct.id) || {quantity: 0}
-  console.log("items in cart?", itemInCart)
+  let itemInCart = state.cart.find(item => item.id === state.product.viewingProduct.id) || {quantity: 0}
+
+  let count = itemInCart.ProductOrders ? itemInCart.ProductOrders.quantity : 0
+  console.log("ITEM IN CART", itemInCart, " COUNT ", count)
+
   return {
     order: state.user.orders,
     product: state.product.viewingProduct,
-    numInCart: itemInCart.quantity
+    numInCart: count
   }
 
 }

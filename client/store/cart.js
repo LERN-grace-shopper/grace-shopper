@@ -1,19 +1,35 @@
 import axios from 'axios'
 
 // action types
+const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART'
+const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART'
+const GET_CART = 'GET_CART'
+const ADD_ORDER_ITEM_TO_CART = 'ADD_ORDER_ITEM_TO_CART'
+
 const ADD_CART_ITEM = 'ADD_CART_ITEM'
 const CHANGE_CART_ITEM_QUANT = 'CHANGE_CART_ITEM_QUANT'
 const REMOVE_CART_ITEM = 'REMOVE_CART_ITEM'
 const ADD_TO_ORDER = 'ADD_TO_ORDER'
-const GET_CART = 'GET_CART'
 
 
 // initial state
 const defaultCart = []
+// { id: 1, status: "Processing", }
 const total = 0
 
 
 // action creators
+export const addItem = (order) => ({
+  type: ADD_ITEM_TO_CART,
+  order
+})
+
+export const addOrderItemToCart = (order) => ({
+  type: ADD_ORDER_ITEM_TO_CART,
+  order
+})
+
+
 export const addItemToCart = (orderId, productId, quantity=1) => ({
   type: ADD_CART_ITEM,
   productId,
@@ -21,7 +37,10 @@ export const addItemToCart = (orderId, productId, quantity=1) => ({
   quantity
 })
 
-
+export const removeItemFromCart = (order) => ({
+  type: REMOVE_ITEM_FROM_CART,
+  order
+})
 
 export const changeCartItemQuant = (productId, quantity) => ({
   type: CHANGE_CART_ITEM_QUANT,
@@ -42,11 +61,14 @@ export const addToOrder = (orderId, productId) => {
     const order = {orderId, productId}
     return axios.put(`/api/orders/add`, order)
       .then(res => {
-        console.log("res???",res.data)
-        dispatch(addItemToCart(res.data.orderId, res.data.productId, res.data.quantity))
+        dispatch(addItem(res.data))
       })
       .catch(err => console.error(err))
   }
+}
+
+export const newItemInCart = () => {
+
 }
 
 export const removeFromOrder = (orderId, productId) => {
@@ -54,15 +76,15 @@ export const removeFromOrder = (orderId, productId) => {
     const order = {orderId, productId}
     return axios.put(`/api/orders/remove`, order)
       .then(res => {
-        dispatch(addItemToCart(res.data.orderId, res.data.productId, res.data.quantity))
+        dispatch(removeItemFromCart(res.data))
       })
       .catch(err => console.error(err))
   }
 }
 
-export const fetchCart = (userId) => {
+export const fetchCart = () => {
   return function (dispatch) {
-    return axios.get(`/api/orders/cart/${userId}`)
+    return axios.get(`/api/orders/cart`)
       .then(res => {
         dispatch(getCart(res.data.products))
       })
@@ -74,13 +96,45 @@ export const fetchCart = (userId) => {
 // reducer
 export default function(state=defaultCart, action) {
   switch (action.type) {
-    case ADD_CART_ITEM:
-      if (state.some(item => item.productId === action.productId)) {
-        return state.map(lineItem => (lineItem.productId === action.productId ? {...lineItem, quantity: action.quantity } : lineItem));
-      } else return [...state, {
-        productId: action.productId,
-        orderId: action.orderId,
-        quantity: action.quantity }];
+
+    // case ADD_ORDER_ITEM_TO_CART:
+    // if(state.indclude(item => (item.id)))
+    //   return
+    //   [...state, action.order]
+
+    case ADD_ITEM_TO_CART:
+      if (!state.some(item => item.id === action.order.productId)) {
+        return [...state, action.order]
+      } else {
+        return state.map(item => {
+          if (item.id === action.order.productId) {
+            return Object.assign({}, item, {ProductOrders: Object.assign({}, item.ProductOrders, {quantity: item.ProductOrders.quantity+1})})
+          } else {
+            return item
+        }
+      }
+  )}
+
+    case REMOVE_ITEM_FROM_CART:
+      return state.map(item => {
+        if (item.id === action.order.productId) {
+          return Object.assign({}, item, {ProductOrders: Object.assign({}, item.ProductOrders, {quantity: item.ProductOrders.quantity-1})})
+        } else {
+          return item
+      }
+    })
+
+    // case ADD_CART_ITEM:
+    // console.log("STAAATE!! ", state)
+      // if (state.some(item => item.productId === action.productId)) {
+      //   return state.map(lineItem => (lineItem.productId === action.productId ? {...lineItem, quantity: action.quantity } : lineItem));
+      // } else {
+      //   console.log("INSIDE ELSE...")
+      //    return [...state, {
+      //   productId: action.productId,
+      //   orderId: action.orderId,
+      //   quantity: action.quantity }] };
+
     case CHANGE_CART_ITEM_QUANT:
       return [...state.filter(lineItem => lineItem.productId !== action.productId), { productId: action.productId, quantity: action.quantity }];
 
