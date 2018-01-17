@@ -52,6 +52,7 @@ const mapState = state => {
 
   let count = itemInCart.ProductOrders ? itemInCart.ProductOrders.quantity : 0
 
+
   return {
     order: state.user.orders,
     product: state.product.viewingProduct,

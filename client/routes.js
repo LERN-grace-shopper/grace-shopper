@@ -39,6 +39,7 @@ class Routes extends Component {
                       <div>
                         <Route path="/data-visualization" component={DataVisualization} />
                         <Route exact path="/users" component={AllUsers} />
+                        <Route path="/orders/all-orders" component={AllOrders} />
                       </div>
                     )
                   }
