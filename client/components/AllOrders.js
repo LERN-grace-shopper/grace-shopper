@@ -19,12 +19,11 @@ const AllOrders = (props) => {
                         <h4>Order id: {order.id}</h4>
                         <h5>Status: {order.status}</h5>
                             <br />
-                        <h5>Products</h5>
+                        <h5>Products:</h5>
                         {order.products.map(product => {
                             return (
                                 <div key={product.id}>
-                                <h5>{product.title}</h5>
-                                <h5>Quantity: {product.ProductOrders.quantity}</h5>
+                                <h5>- {product.title}, Quantity: {product.ProductOrders.quantity}</h5>
                                 <h5>Address: {order.address}</h5>
                                 </div>
                             )
@@ -33,7 +32,7 @@ const AllOrders = (props) => {
 
                             <br />
                         
-                        
+                            <h4>Total: ${order.total}</h4>
                     </div>
                 )
             })}
@@ -43,6 +42,8 @@ const AllOrders = (props) => {
 }
 
 const mapState = (state) => {
+
+    console.log('state', state)
     if (state.user.isAdmin) {
         return {
             orders: state.order.orders
