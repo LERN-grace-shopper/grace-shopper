@@ -42,8 +42,6 @@ const AllOrders = (props) => {
 }
 
 const mapState = (state) => {
-
-    console.log('state', state)
     if (state.user.isAdmin) {
         return {
             orders: state.order.orders
