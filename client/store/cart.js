@@ -56,7 +56,8 @@ export const getCart = (order) => ({
 
 
 // thunk creators not needed since the cart is stored entirely clientside?
-export const addToOrder = (orderId, productId) => {
+
+export const addToOrder = (orderId, productId) => { 
   return function (dispatch) {
     const order = {orderId, productId}
     return axios.put(`/api/orders/add`, order)
