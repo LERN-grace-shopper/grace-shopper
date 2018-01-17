@@ -56,13 +56,7 @@ const mapState = (state) => {
     
     
 const mapDispatch = (dispatch, ownProps) => {
-<<<<<<< HEAD
-
-    const userId = ownProps.match.params.userId
-    dispatch(fetchOrdersByUserId(userId))
-=======
     dispatch(fetchAllOrders())
->>>>>>> 62523d790a23ca7f4a9a9b347d56ef9b7f66abf1
   return {}
 }
 
