@@ -5,7 +5,7 @@ import {withRouter, Link} from 'react-router-dom'
 import {fetchOrdersByUserId} from '../store'
 
 const AllOrders = (props) => {
-    console.log('PROPS', props)
+
     const orders = props.userOrders
 
     return (
@@ -45,7 +45,7 @@ const mapState = (state) => ({
 })
 
 const mapDispatch = (dispatch, ownProps) => {
-    console.log('ownProps', ownProps)
+
     const userId = ownProps.match.params.userId
     dispatch(fetchOrdersByUserId(userId))
   return {}
