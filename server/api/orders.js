@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { Order, ProductOrder } = require('../db/models');
-
+const mailer = require('./nodemailer')
 // GET all orders
 //right now passwords and salts are coming too, but that needs to not be a thing....
 router.get('/', (req, res, next) => {
@@ -40,10 +40,15 @@ router.get('/cart', (req, res, next) => {
 
 // PUT orders from "Complete my purchase" button
 router.put('/users/:userId', (req, res, next) => {
+  req.body.isCart = false
   Order.update(req.body, {
     where: { userId: req.params.userId, isCart: true}, returning: true
   })
   .then(order => {
+    mailer(req.user.email)
+    Order.create({userId: req.params.userId, isCart: true})
+    .then(newOrder => newOrder)
+    .catch(next)
     const updated = order[1][0]
     res.json(order)})
   .catch(next)
