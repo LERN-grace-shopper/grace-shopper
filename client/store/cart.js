@@ -107,14 +107,25 @@ export default function(state=defaultCart, action) {
       }
   )
 
+    // case REMOVE_ITEM_FROM_CART:
+    //   return state.map(item => {
+    //     if (item.id === action.order.productId) {
+    //       return Object.assign({}, item, {ProductOrders: Object.assign({}, item.ProductOrders, {quantity: item.ProductOrders.quantity-1})})
+    //     } else {
+    //       return item
+    //   }
+    // })
+
+    // I think this is what we should use
     case REMOVE_ITEM_FROM_CART:
-      return state.map(item => {
-        if (item.id === action.order.productId) {
-          return Object.assign({}, item, {ProductOrders: Object.assign({}, item.ProductOrders, {quantity: item.ProductOrders.quantity-1})})
-        } else {
-          return item
-      }
-    })
+    
+            return state.map(item => {
+              if (item.id === action.order.productId) {
+                return Object.assign({}, item, {ProductOrders: Object.assign({}, item.ProductOrders, {quantity: item.ProductOrders.quantity-1})})
+              } 
+          }
+      )
+    
 
     case CHANGE_CART_ITEM_QUANT:
       return [...state.filter(lineItem => lineItem.productId !== action.productId), { productId: action.productId, quantity: action.quantity }];
