@@ -107,7 +107,7 @@ describe('Products Route:', () => {
 
     // When route is in place, check to make sure this test is sound
   describe('POST /api/products', () => {
-    xit('successfully creates a new product instance in the database', () => {
+    it('successfully creates a new product instance in the database', () => {
       return request(app)
         .post('/api/products')
         .send({
@@ -184,7 +184,7 @@ describe('Products Route:', () => {
     });
   });
 
-  describe('DELETE /api/products', () => {
+  describe('DELETE /api/products/:productId', () => {
     beforeEach(() => {
       Product.create({
         title: 'Obsidian',
@@ -194,7 +194,7 @@ describe('Products Route:', () => {
     })
 
     // When route is in place, check this test to make sure it is sound
-    xit('removes an existing product from the database and responds with a 204', () => {
+    it('removes an existing product from the database and responds with a 204', () => {
       return request(app)
         .delete('/api/products/1')
         .then(() => {
