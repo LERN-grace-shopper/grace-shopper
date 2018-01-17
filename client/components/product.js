@@ -25,7 +25,7 @@ const Product = props => {
       <button onClick={handleCartRemovalClick(product.id, cartId)}>
         remove from cart
       </button>
-
+          
       {numInCart ? `(${numInCart} in cart)` : ''}
 
       <br />
@@ -48,7 +48,12 @@ const Product = props => {
 
 
 const mapState = state => {
+
   let itemInCart = state.cart.find(item => item.id === state.product.viewingProduct.id) || {quantity: 0}
+
+  // let itemInCart = state.cart.find(item => item.ProductOrders.productId === state.product.viewingProduct.id) || {quantity: 0}
+
+  // let count = itemInCart.ProductOrders.quantity
 
   let count = itemInCart.ProductOrders ? itemInCart.ProductOrders.quantity : 0
 
