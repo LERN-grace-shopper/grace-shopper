@@ -103,7 +103,8 @@ export default function(state=defaultCart, action) {
     //   [...state, action.order]
 
     case ADD_ITEM_TO_CART:
-      if (state.some(item => item.id === action.order.productId)) {
+
+      if (!state.some(item => item.id === action.order.productId)) {
         return [...state, action.order]
       } else {
         return state.map(item => {
