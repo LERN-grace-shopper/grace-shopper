@@ -122,8 +122,22 @@ export default function(state=defaultCart, action) {
     
             return state.map(item => {
               if (item.id === action.order.productId) {
-                return Object.assign({}, item, {ProductOrders: Object.assign({}, item.ProductOrders, {quantity: item.ProductOrders.quantity-1})})
-              } 
+                return Object.assign({}, item, {
+                  ProductOrders: Object.assign(
+                    {},
+                    item.ProductOrders,
+                    { quantity: item.ProductOrders.quantity - 1 }
+                  )
+                });
+              } else {
+                return Object.assign({}, item, {
+                  ProductOrders: Object.assign(
+                    {},
+                    item.ProductOrders,
+                    { quantity: 1 }
+                  )
+                });
+              }
           }
       )
     
