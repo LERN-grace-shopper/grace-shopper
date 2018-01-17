@@ -20,9 +20,6 @@ form div {
   display: inline-block;
 }
 
-#shop-name {
-  font-family: cursive
-}
 
 #single-product-view {
   display: flex;

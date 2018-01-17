@@ -7,9 +7,7 @@ import {alterCheckoutForm, sendCheckoutFormToServer} from '../store/checkout-for
 
 
 const Cart = props => {
-
   let subtotal = props.cart.reduce((subtotal, product) => {
-
     return subtotal + product.price * product.ProductOrders.quantity
   }, 0)
 
@@ -72,7 +70,7 @@ const mapState = state => ({
 })
 
 const mapDispatch = (dispatch, ownProps) => {
-  dispatch(fetchCart(+ownProps.match.params.userId))
+  dispatch(fetchCart(ownProps.match.params.userId))
   return {
     handleChange (event) {
         const alteration = {}
