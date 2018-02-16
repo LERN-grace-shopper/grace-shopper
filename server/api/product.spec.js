@@ -76,7 +76,7 @@ describe('Products Route:', () => {
     describe('GET /api/products?category=iridescent', () => {
       // This test is operating soundly but is clearly not ideal. I'm really wanting to move all new product creation to the beginning of this file and re-jigger each of the tests herein, but in the interest of time I will not.
 
-      //Fun fact: all 'beforeEach' hooks run after all 'before' hooks
+      //all 'beforeEach' hooks run after all 'before' hooks
         beforeEach(() => {
           return Product.bulkCreate([{
             title: 'Moonstone',
@@ -105,7 +105,6 @@ describe('Products Route:', () => {
   });
 
 
-    // When route is in place, check to make sure this test is sound
   describe('POST /api/products', () => {
     it('successfully creates a new product instance in the database', () => {
       return request(app)
