@@ -30,19 +30,19 @@ const Product = props => {
 
       <br />
       <div id="view-product-desc">
-        Product Description:
-        <br />
+        <h5>Product Description</h5>
         {product.description}
         <br />
-      <br />
-    
-        Product Categories:
         <br />
+        <h5>Product Categories</h5>
         {product.categories}
-      </div>
+        <br />
+        <br />
       <AllReviews />
       {/* Add isLoggedIn check to conditionally render LeaveReview (only for authenticated users) */}
-      <LeaveReview productId={product.id} />
+      <hr />
+      <LeaveReview productId={product.id} id="leave-review-form"/>
+      </div>
     </div>);
 }
 

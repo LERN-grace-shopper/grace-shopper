@@ -1,6 +1,6 @@
 const nodeMailer = require("nodemailer");
 
-mailer = email => {
+const mailer = email => {
   const transporter = nodeMailer.createTransport({
     host: "smtp.gmail.com",
     port: 465,

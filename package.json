@@ -61,6 +61,8 @@
     "eslint": "^4.10.0",
     "eslint-config-fullstack": "^3.0.0",
     "eslint-plugin-react": "^7.4.0",
+    "jsdom": "11.6.2",
+    "jsdom-global": "3.0.2",
     "mocha": "^3.3.0",
     "nodemon": "^1.12.1",
     "react-test-renderer": "^16.0.0",

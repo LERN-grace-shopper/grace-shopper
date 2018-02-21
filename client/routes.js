@@ -68,11 +68,15 @@ const mapState = (state) => {
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
+  console.log('OWN PROPS', ownProps)
   return {
     loadInitialData () {
       dispatch(me())
-      dispatch(fetchCart())
+      // if (isLoggedIn) {
+      //   dispatch(fetchCart())
+      // }
+      
     }
   }
 }

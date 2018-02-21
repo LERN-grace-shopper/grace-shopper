@@ -17,14 +17,15 @@ const Main = (props) => {
 
   return (
     <div>
-      <h1 id="shop-name">CRYSTALS</h1>
+    <h1 id="shop-name">CRYSTALS</h1>
       <nav>
         {
           isLoggedIn
             ? <div>
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">{isAdmin ? 'Admin' : 'Home'}</Link>
-              <Link to={`/orders/users/${userId}`}>My Orders</Link>
+              <Link to="/home" className="nav-item">{isAdmin ? 'Admin' : 'Home'}</Link>
+              <Link to={`/orders/users/${userId}`} className="nav-item">My Orders</Link>
+              <Link to={`/cart/${userId}`} className="nav-item">Cart</Link>
               {
                 isAdmin && (
                   <div>
@@ -39,12 +40,10 @@ const Main = (props) => {
             </div>
             : <div>
               {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+              <Link to="/signup" className="nav-item">Sign Up</Link>
             </div>
         }
-        <Link to="/products">Products</Link>
-        <Link to={`/cart/${userId}`}>Cart</Link>
+        <Link to="/products" className="nav-item">Products</Link>
       </nav>
       <hr />
       {children}
